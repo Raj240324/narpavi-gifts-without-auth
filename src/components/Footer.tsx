@@ -40,21 +40,20 @@ const Footer = () => {
             <h3 className="font-semibold text-lg">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
-              <li><Link to="/shop" className="text-gray-400 hover:text-white transition-colors">Shop</Link></li>
-              <li><Link to="/custom-orders" className="text-gray-400 hover:text-white transition-colors">Custom Orders</Link></li>
               <li><Link to="/gallery" className="text-gray-400 hover:text-white transition-colors">Gallery</Link></li>
+              <li><Link to="/custom-orders" className="text-gray-400 hover:text-white transition-colors">Services</Link></li>
               <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
             </ul>
           </div>
 
-          {/* Customer Service */}
+          {/* Services */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Customer Service</h3>
+            <h3 className="font-semibold text-lg">Our Services</h3>
             <ul className="space-y-2 text-sm">
+              <li><span className="text-gray-400">Custom Pencil Portraits</span></li>
+              <li><span className="text-gray-400">Resin Art Pieces</span></li>
+              <li><span className="text-gray-400">Personalized Gifts</span></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Us</Link></li>
-              <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
-              <li><Link to="/shipping" className="text-gray-400 hover:text-white transition-colors">Shipping Info</Link></li>
-              <li><Link to="/returns" className="text-gray-400 hover:text-white transition-colors">Returns</Link></li>
               <li><Link to="/testimonials" className="text-gray-400 hover:text-white transition-colors">Testimonials</Link></li>
             </ul>
           </div>

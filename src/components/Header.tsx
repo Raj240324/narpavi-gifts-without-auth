@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, ShoppingCart, Search, User } from 'lucide-react';
+import { Menu, Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
@@ -12,10 +12,9 @@ const Header = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'Shop', path: '/shop' },
-    { name: 'Custom Orders', path: '/custom-orders' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'About', path: '/about' },
+    { name: 'Services', path: '/custom-orders' },
     { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -54,12 +53,6 @@ const Header = () => {
             </Button>
             <Button variant="ghost" size="sm">
               <User className="w-4 h-4" />
-            </Button>
-            <Button variant="ghost" size="sm" className="relative">
-              <ShoppingCart className="w-4 h-4" />
-              <span className="absolute -top-2 -right-2 bg-pink-400 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                0
-              </span>
             </Button>
 
             {/* Mobile Menu Button */}

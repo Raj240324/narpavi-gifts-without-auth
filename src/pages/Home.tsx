@@ -1,44 +1,39 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ProductCard from '@/components/ProductCard';
 import TestimonialCard from '@/components/TestimonialCard';
 
 const Home = () => {
-  const featuredProducts = [
+  const featuredWorks = [
     {
       id: '1',
       name: 'Custom Pet Portrait',
-      price: 89,
       image: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop',
       category: 'Pencil Art',
-      isNew: true
+      description: 'Capturing the essence of your beloved pet in detailed pencil work'
     },
     {
       id: '2',
       name: 'Ocean Wave Resin Tray',
-      price: 45,
       image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=400&fit=crop',
       category: 'Resin Art',
-      isNew: false
+      description: 'Handcrafted serving tray with beautiful ocean wave design'
     },
     {
       id: '3',
       name: 'Botanical Resin Bookmark',
-      price: 25,
       image: 'https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=400&h=400&fit=crop',
       category: 'Resin Gifts',
-      isNew: true
+      description: 'Delicate bookmarks featuring real pressed flowers'
     },
     {
       id: '4',
       name: 'Family Portrait Sketch',
-      price: 120,
       image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=400&fit=crop',
       category: 'Pencil Art',
-      isNew: false
+      description: 'Capturing precious family moments in artistic detail'
     }
   ];
 
@@ -63,6 +58,26 @@ const Home = () => {
     }
   ];
 
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    }, observerOptions);
+
+    const animatedElements = document.querySelectorAll('.scroll-animate');
+    animatedElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -70,7 +85,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-pink-100 via-purple-50 to-green-100" />
         <div className="absolute inset-0 bg-black/10" />
         
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-4 animate-fade-in">
           <h1 className="font-dancing text-6xl md:text-8xl text-gray-800 mb-6">
             Artisan Resin
           </h1>
@@ -83,14 +98,14 @@ const Home = () => {
               size="lg" 
               className="bg-pink-400 hover:bg-pink-500 text-white px-8 py-3 text-lg"
             >
-              <Link to="/shop">Shop Collection</Link>
+              <Link to="/gallery">View Our Work</Link>
             </Button>
             <Button 
               variant="outline" 
               size="lg" 
               className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white px-8 py-3 text-lg"
             >
-              <Link to="/custom-orders">Custom Orders</Link>
+              <Link to="/custom-orders">Commission Artwork</Link>
             </Button>
           </div>
         </div>
@@ -101,7 +116,7 @@ const Home = () => {
       </section>
 
       {/* Brand Story */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <h2 className="font-dancing text-4xl md:text-5xl text-gray-800">Our Story</h2>
@@ -118,19 +133,42 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-20 bg-gray-50">
+      {/* Featured Work */}
+      <section className="py-20 bg-gray-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">Featured Collection</h2>
+            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">Featured Work</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover our most popular handcrafted pieces, each one unique and made with love
+              Discover our most cherished handcrafted pieces, each one unique and made with love
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
+            {featuredWorks.map((work, index) => (
+              <div 
+                key={work.id} 
+                className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 bg-white rounded-lg"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={work.image} 
+                    alt={work.name}
+                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                </div>
+                
+                <div className="p-4">
+                  <div className="space-y-2">
+                    <p className="text-xs text-gray-500 uppercase tracking-wide">{work.category}</p>
+                    <h3 className="font-semibold text-gray-800 group-hover:text-pink-400 transition-colors">
+                      {work.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">{work.description}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
           
@@ -139,17 +177,44 @@ const Home = () => {
               size="lg" 
               className="bg-pink-400 hover:bg-pink-500 text-white px-8"
             >
-              <Link to="/shop">View All Products</Link>
+              <Link to="/gallery">View Complete Gallery</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-white">
+      {/* Services Overview */}
+      <section className="py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">What Our Customers Say</h2>
+            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">What We Create</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              From custom portraits to unique resin art, we specialize in creating meaningful pieces
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-pink-50 to-purple-50">
+              <h3 className="font-dancing text-2xl text-gray-800 mb-4">Custom Portraits</h3>
+              <p className="text-gray-600">Bringing your loved ones to life through detailed pencil artistry</p>
+            </div>
+            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-purple-50 to-green-50">
+              <h3 className="font-dancing text-2xl text-gray-800 mb-4">Resin Art</h3>
+              <p className="text-gray-600">Functional art pieces that blend beauty with everyday utility</p>
+            </div>
+            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-green-50 to-pink-50">
+              <h3 className="font-dancing text-2xl text-gray-800 mb-4">Custom Gifts</h3>
+              <p className="text-gray-600">Personalized keepsakes that celebrate special moments</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-gray-50 scroll-animate opacity-0">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">What Our Clients Say</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Read about the experiences of customers who have received our handcrafted pieces
             </p>
@@ -157,7 +222,9 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} {...testimonial} />
+              <div key={index} style={{ animationDelay: `${index * 150}ms` }}>
+                <TestimonialCard {...testimonial} />
+              </div>
             ))}
           </div>
           
@@ -170,7 +237,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-pink-400 to-purple-400">
+      <section className="py-20 bg-gradient-to-r from-pink-400 to-purple-400 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center text-white">
             <h2 className="font-dancing text-4xl md:text-5xl mb-6">Ready to Create Something Special?</h2>
@@ -182,7 +249,7 @@ const Home = () => {
               variant="outline" 
               className="border-white text-white hover:bg-white hover:text-pink-400 px-8 py-3"
             >
-              <Link to="/custom-orders">Start Your Custom Order</Link>
+              <Link to="/custom-orders">Start Your Commission</Link>
             </Button>
           </div>
         </div>
