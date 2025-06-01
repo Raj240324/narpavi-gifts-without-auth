@@ -1,11 +1,14 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Search, User } from 'lucide-react';
+import { Menu, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
@@ -18,6 +21,14 @@ const Header = () => {
     { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Searching for:', searchQuery);
+    // Search functionality would be implemented here
+    setIsSearchOpen(false);
+    setSearchQuery('');
+  };
 
   return (
     <header className="bg-white/90 backdrop-blur-sm shadow-sm sticky top-0 z-50">
@@ -48,12 +59,37 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="hidden md:flex">
-              <Search className="w-4 h-4" />
-            </Button>
-            <Button variant="ghost" size="sm">
-              <User className="w-4 h-4" />
-            </Button>
+            {/* Desktop Search */}
+            <div className="hidden md:flex items-center">
+              {isSearchOpen ? (
+                <form onSubmit={handleSearch} className="flex items-center space-x-2">
+                  <Input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-48"
+                    autoFocus
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsSearchOpen(false)}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </form>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsSearchOpen(true)}
+                >
+                  <Search className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
 
             {/* Mobile Menu Button */}
             <Button
@@ -70,6 +106,22 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="lg:hidden py-4 border-t border-gray-100">
+            {/* Mobile Search */}
+            <div className="mb-4 px-4">
+              <form onSubmit={handleSearch} className="flex items-center space-x-2">
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="flex-1"
+                />
+                <Button type="submit" size="sm" className="bg-pink-400 hover:bg-pink-500">
+                  <Search className="w-4 h-4" />
+                </Button>
+              </form>
+            </div>
+            
             <nav className="flex flex-col space-y-2">
               {navItems.map((item) => (
                 <Link

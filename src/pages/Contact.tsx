@@ -17,6 +17,7 @@ const Contact = () => {
     subject: 'general',
     message: ''
   });
+  const [newsletterEmail, setNewsletterEmail] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +32,28 @@ const Contact = () => {
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newsletterEmail) {
+      toast({
+        title: "Subscribed!",
+        description: "Thank you for subscribing to our newsletter.",
+      });
+      setNewsletterEmail('');
+    }
+  };
+
+  const handleSocialClick = (platform: string) => {
+    toast({
+      title: "Social Media",
+      description: `Opening ${platform} in a new tab...`,
+    });
+  };
+
+  const handleFAQClick = () => {
+    window.location.href = '/faq';
   };
 
   return (
@@ -166,6 +189,7 @@ const Contact = () => {
                     variant="outline" 
                     size="sm" 
                     className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white"
+                    onClick={() => handleSocialClick('Instagram')}
                   >
                     <Instagram className="w-4 h-4 mr-2" />
                     Instagram
@@ -174,6 +198,7 @@ const Contact = () => {
                     variant="outline" 
                     size="sm" 
                     className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white"
+                    onClick={() => handleSocialClick('Facebook')}
                   >
                     <Facebook className="w-4 h-4 mr-2" />
                     Facebook
@@ -191,12 +216,21 @@ const Contact = () => {
                 <p className="text-gray-600 text-sm">
                   Subscribe to our newsletter for exclusive previews, special offers, and art tips
                 </p>
-                <div className="space-y-2">
-                  <Input placeholder="Your email address" />
-                  <Button className="w-full bg-pink-400 hover:bg-pink-500 text-white">
+                <form onSubmit={handleNewsletterSubmit} className="space-y-2">
+                  <Input 
+                    type="email"
+                    placeholder="Your email address" 
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    required
+                  />
+                  <Button 
+                    type="submit"
+                    className="w-full bg-pink-400 hover:bg-pink-500 text-white"
+                  >
                     Subscribe
                   </Button>
-                </div>
+                </form>
                 <p className="text-xs text-gray-500">
                   We respect your privacy. Unsubscribe at any time.
                 </p>
@@ -216,6 +250,7 @@ const Contact = () => {
             size="lg" 
             variant="outline"
             className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white px-8"
+            onClick={handleFAQClick}
           >
             View FAQ
           </Button>

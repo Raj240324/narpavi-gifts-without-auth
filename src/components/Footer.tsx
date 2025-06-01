@@ -1,11 +1,34 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Instagram, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const { toast } = useToast();
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      toast({
+        title: "Subscribed!",
+        description: "Thank you for subscribing to our newsletter.",
+      });
+      setEmail('');
+    }
+  };
+
+  const handleSocialClick = (platform: string) => {
+    toast({
+      title: "Social Media",
+      description: `Opening ${platform} in a new tab...`,
+    });
+    // In a real app, these would link to actual social media profiles
+  };
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -23,13 +46,25 @@ const Footer = () => {
               personalized pieces that tell your story.
             </p>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="sm">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => handleSocialClick('Instagram')}
+              >
                 <Instagram className="w-4 h-4" />
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => handleSocialClick('Facebook')}
+              >
                 <Facebook className="w-4 h-4" />
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => handleSocialClick('Email')}
+              >
                 <Mail className="w-4 h-4" />
               </Button>
             </div>
@@ -64,15 +99,22 @@ const Footer = () => {
             <p className="text-gray-400 text-sm">
               Subscribe for exclusive previews and special offers
             </p>
-            <div className="flex space-x-2">
+            <form onSubmit={handleNewsletterSubmit} className="flex space-x-2">
               <Input 
+                type="email"
                 placeholder="Your email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
+                required
               />
-              <Button className="bg-pink-400 hover:bg-pink-500">
+              <Button 
+                type="submit"
+                className="bg-pink-400 hover:bg-pink-500"
+              >
                 Subscribe
               </Button>
-            </div>
+            </form>
           </div>
         </div>
 
@@ -81,10 +123,10 @@ const Footer = () => {
             © 2024 Artisan Resin. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/privacy" className="text-gray-400 text-sm hover:text-white transition-colors">
+            <Link to="/faq" className="text-gray-400 text-sm hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-gray-400 text-sm hover:text-white transition-colors">
+            <Link to="/faq" className="text-gray-400 text-sm hover:text-white transition-colors">
               Terms of Service
             </Link>
           </div>
