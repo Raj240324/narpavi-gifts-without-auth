@@ -1,15 +1,17 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Search, X } from 'lucide-react';
+import { Menu, Search, X, MessageCircle, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
+  const { toast } = useToast();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -25,9 +27,29 @@ const Header = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Searching for:', searchQuery);
-    // Search functionality would be implemented here
+    toast({
+      title: "Search",
+      description: `Searching for "${searchQuery}"...`,
+    });
     setIsSearchOpen(false);
     setSearchQuery('');
+  };
+
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent("Hi! I'm interested in placing an order for your pencil art and resin gifts.");
+    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    toast({
+      title: "Opening WhatsApp",
+      description: "Redirecting to WhatsApp for quick orders...",
+    });
+  };
+
+  const handleInstagramClick = () => {
+    window.open('https://instagram.com/artisanresin', '_blank');
+    toast({
+      title: "Opening Instagram",
+      description: "Check out our latest work on Instagram...",
+    });
   };
 
   return (
@@ -58,7 +80,27 @@ const Header = () => {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            {/* Quick Order Buttons - Desktop */}
+            <div className="hidden md:flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleInstagramClick}
+                className="text-purple-600 hover:text-purple-700"
+              >
+                <Instagram className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleWhatsAppClick}
+                className="text-green-600 hover:text-green-700"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </Button>
+            </div>
+
             {/* Desktop Search */}
             <div className="hidden md:flex items-center">
               {isSearchOpen ? (
@@ -106,6 +148,26 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="lg:hidden py-4 border-t border-gray-100">
+            {/* Mobile Quick Order Buttons */}
+            <div className="mb-4 px-4 flex space-x-2">
+              <Button
+                onClick={handleWhatsAppClick}
+                className="flex-1 bg-green-500 hover:bg-green-600 text-white"
+                size="sm"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                WhatsApp Order
+              </Button>
+              <Button
+                onClick={handleInstagramClick}
+                className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                size="sm"
+              >
+                <Instagram className="w-4 h-4 mr-2" />
+                Instagram
+              </Button>
+            </div>
+
             {/* Mobile Search */}
             <div className="mb-4 px-4">
               <form onSubmit={handleSearch} className="flex items-center space-x-2">

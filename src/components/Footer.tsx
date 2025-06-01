@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Instagram, Facebook } from 'lucide-react';
+import { Mail, Instagram, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
@@ -21,12 +21,29 @@ const Footer = () => {
     }
   };
 
-  const handleSocialClick = (platform: string) => {
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent("Hi! I'm interested in placing an order for your pencil art and resin gifts.");
+    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
     toast({
-      title: "Social Media",
-      description: `Opening ${platform} in a new tab...`,
+      title: "Opening WhatsApp",
+      description: "Redirecting to WhatsApp for quick orders...",
     });
-    // In a real app, these would link to actual social media profiles
+  };
+
+  const handleInstagramClick = () => {
+    window.open('https://instagram.com/artisanresin', '_blank');
+    toast({
+      title: "Opening Instagram",
+      description: "Check out our latest work on Instagram...",
+    });
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:hello@artisanresin.com';
+    toast({
+      title: "Opening Email",
+      description: "Opening your email client...",
+    });
   };
 
   return (
@@ -45,25 +62,28 @@ const Footer = () => {
               Handcrafted pencil art and resin gifts made with love. Creating unique, 
               personalized pieces that tell your story.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               <Button 
                 variant="ghost" 
                 size="sm"
-                onClick={() => handleSocialClick('Instagram')}
+                onClick={handleInstagramClick}
+                className="hover:bg-purple-600"
               >
                 <Instagram className="w-4 h-4" />
               </Button>
               <Button 
                 variant="ghost" 
                 size="sm"
-                onClick={() => handleSocialClick('Facebook')}
+                onClick={handleWhatsAppClick}
+                className="hover:bg-green-600"
               >
-                <Facebook className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" />
               </Button>
               <Button 
                 variant="ghost" 
                 size="sm"
-                onClick={() => handleSocialClick('Email')}
+                onClick={handleEmailClick}
+                className="hover:bg-pink-600"
               >
                 <Mail className="w-4 h-4" />
               </Button>
@@ -81,15 +101,31 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Contact for Orders */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Our Services</h3>
+            <h3 className="font-semibold text-lg">Order Now</h3>
             <ul className="space-y-2 text-sm">
-              <li><span className="text-gray-400">Custom Pencil Portraits</span></li>
-              <li><span className="text-gray-400">Resin Art Pieces</span></li>
-              <li><span className="text-gray-400">Personalized Gifts</span></li>
-              <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Us</Link></li>
+              <li>
+                <button 
+                  onClick={handleWhatsAppClick}
+                  className="text-gray-400 hover:text-green-400 transition-colors flex items-center gap-2"
+                >
+                  <MessageCircle className="w-3 h-3" />
+                  WhatsApp Orders
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={handleInstagramClick}
+                  className="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2"
+                >
+                  <Instagram className="w-3 h-3" />
+                  Instagram Gallery
+                </button>
+              </li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Form</Link></li>
               <li><Link to="/testimonials" className="text-gray-400 hover:text-white transition-colors">Testimonials</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
             </ul>
           </div>
 

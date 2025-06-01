@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Mail, MapPin, Clock, Instagram, Facebook } from 'lucide-react';
+import { Mail, MapPin, Clock, Instagram, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -45,10 +45,20 @@ const Contact = () => {
     }
   };
 
-  const handleSocialClick = (platform: string) => {
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent("Hi! I'm interested in your pencil art and resin gifts. Could you please share more details about your services?");
+    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
     toast({
-      title: "Social Media",
-      description: `Opening ${platform} in a new tab...`,
+      title: "Opening WhatsApp",
+      description: "Redirecting to WhatsApp for instant communication...",
+    });
+  };
+
+  const handleInstagramClick = () => {
+    window.open('https://instagram.com/artisanresin', '_blank');
+    toast({
+      title: "Opening Instagram",
+      description: "Check out our latest work on Instagram...",
     });
   };
 
@@ -64,6 +74,30 @@ const Contact = () => {
           <h1 className="font-dancing text-5xl md:text-6xl text-gray-800 mb-4">Get In Touch</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Have questions about our art or ready to start a custom project? We'd love to hear from you!
+          </p>
+        </div>
+
+        {/* Quick Contact Options */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Quick Contact for Orders</h2>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button 
+              onClick={handleWhatsAppClick}
+              className="bg-green-500 hover:bg-green-600 text-white flex items-center gap-2 px-6 py-3 text-lg"
+            >
+              <MessageCircle className="w-5 h-5" />
+              WhatsApp for Orders
+            </Button>
+            <Button 
+              onClick={handleInstagramClick}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white flex items-center gap-2 px-6 py-3 text-lg"
+            >
+              <Instagram className="w-5 h-5" />
+              View Our Work
+            </Button>
+          </div>
+          <p className="text-center text-gray-600 mt-4 text-sm">
+            For instant responses and quick orders, message us on WhatsApp or check our latest work on Instagram
           </p>
         </div>
 
@@ -156,6 +190,21 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
+                  <MessageCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-gray-800">WhatsApp</h3>
+                    <Button 
+                      variant="link" 
+                      className="p-0 h-auto text-gray-600 hover:text-green-500"
+                      onClick={handleWhatsAppClick}
+                    >
+                      Message us for quick orders
+                    </Button>
+                    <p className="text-sm text-gray-500">Instant responses during business hours</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
                   <MapPin className="w-6 h-6 text-pink-400 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Studio Location</h3>
@@ -184,24 +233,22 @@ const Contact = () => {
                 <p className="text-gray-600 text-sm">
                   See our latest work and behind-the-scenes content on social media
                 </p>
-                <div className="flex space-x-4">
+                <div className="space-y-3">
                   <Button 
                     variant="outline" 
-                    size="sm" 
-                    className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white"
-                    onClick={() => handleSocialClick('Instagram')}
+                    className="w-full border-gradient-to-r from-purple-400 to-pink-400 text-purple-600 hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white"
+                    onClick={handleInstagramClick}
                   >
                     <Instagram className="w-4 h-4 mr-2" />
-                    Instagram
+                    Follow on Instagram
                   </Button>
                   <Button 
                     variant="outline" 
-                    size="sm" 
-                    className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white"
-                    onClick={() => handleSocialClick('Facebook')}
+                    className="w-full border-green-400 text-green-600 hover:bg-green-400 hover:text-white"
+                    onClick={handleWhatsAppClick}
                   >
-                    <Facebook className="w-4 h-4 mr-2" />
-                    Facebook
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Order via WhatsApp
                   </Button>
                 </div>
               </CardContent>
