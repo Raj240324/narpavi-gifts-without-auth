@@ -46,7 +46,7 @@ const Contact = () => {
   };
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hi! I'm interested in your pencil art and resin gifts. Could you please share more details about your services?");
+    const message = encodeURIComponent("Hi! I'm interested in your gifts from Narpavi Gifts. Could you please share more details about your services?");
     window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
     toast({
       title: "Opening WhatsApp",
@@ -55,7 +55,7 @@ const Contact = () => {
   };
 
   const handleInstagramClick = () => {
-    window.open('https://instagram.com/artisanresin', '_blank');
+    window.open('https://www.instagram.com/narpavi_gifts?igsh=cWowMHlidXB5M3V1', '_blank');
     toast({
       title: "Opening Instagram",
       description: "Check out our latest work on Instagram...",
@@ -73,7 +73,7 @@ const Contact = () => {
         <div className="text-center mb-12">
           <h1 className="font-dancing text-5xl md:text-6xl text-gray-800 mb-4">Get In Touch</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Have questions about our art or ready to start a custom project? We'd love to hear from you!
+            Have questions about our gifts or ready to start a custom project? We'd love to hear from you!
           </p>
         </div>
 
@@ -184,7 +184,7 @@ const Contact = () => {
                   <Mail className="w-6 h-6 text-pink-400 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Email</h3>
-                    <p className="text-gray-600">hello@artisanresin.com</p>
+                    <p className="text-gray-600">hello@narpavigifts.com</p>
                     <p className="text-sm text-gray-500">We respond within 24 hours</p>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ const Contact = () => {
                   <MapPin className="w-6 h-6 text-pink-400 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Studio Location</h3>
-                    <p className="text-gray-600">Portland, Oregon</p>
+                    <p className="text-gray-600">India</p>
                     <p className="text-sm text-gray-500">By appointment only</p>
                   </div>
                 </div>
@@ -218,7 +218,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold text-gray-800">Response Time</h3>
                     <p className="text-gray-600">Within 24 hours</p>
-                    <p className="text-sm text-gray-500">Monday - Friday, 9AM - 6PM PST</p>
+                    <p className="text-sm text-gray-500">Monday - Saturday, 9AM - 6PM IST</p>
                   </div>
                 </div>
               </CardContent>

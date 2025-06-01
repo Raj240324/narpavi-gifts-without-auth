@@ -22,7 +22,7 @@ const Footer = () => {
   };
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hi! I'm interested in placing an order for your pencil art and resin gifts.");
+    const message = encodeURIComponent("Hi! I'm interested in placing an order for gifts from Narpavi Gifts.");
     window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
     toast({
       title: "Opening WhatsApp",
@@ -31,7 +31,7 @@ const Footer = () => {
   };
 
   const handleInstagramClick = () => {
-    window.open('https://instagram.com/artisanresin', '_blank');
+    window.open('https://www.instagram.com/narpavi_gifts?igsh=cWowMHlidXB5M3V1', '_blank');
     toast({
       title: "Opening Instagram",
       description: "Check out our latest work on Instagram...",
@@ -39,7 +39,7 @@ const Footer = () => {
   };
 
   const handleEmailClick = () => {
-    window.location.href = 'mailto:hello@artisanresin.com';
+    window.location.href = 'mailto:hello@narpavigifts.com';
     toast({
       title: "Opening Email",
       description: "Opening your email client...",
@@ -54,9 +54,9 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">AR</span>
+                <span className="text-white font-bold text-sm">NG</span>
               </div>
-              <span className="font-dancing text-xl">Artisan Resin</span>
+              <span className="font-dancing text-xl">Narpavi Gifts</span>
             </div>
             <p className="text-gray-400 text-sm">
               Handcrafted pencil art and resin gifts made with love. Creating unique, 
@@ -156,7 +156,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Artisan Resin. All rights reserved.
+            © 2024 Narpavi Gifts. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link to="/faq" className="text-gray-400 text-sm hover:text-white transition-colors">

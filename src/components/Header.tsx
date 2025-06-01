@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hi! I'm interested in placing an order for your pencil art and resin gifts.");
+    const message = encodeURIComponent("Hi! I'm interested in placing an order for your gifts from Narpavi Gifts.");
     window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
     toast({
       title: "Opening WhatsApp",
@@ -45,7 +45,7 @@ const Header = () => {
   };
 
   const handleInstagramClick = () => {
-    window.open('https://instagram.com/artisanresin', '_blank');
+    window.open('https://www.instagram.com/narpavi_gifts?igsh=cWowMHlidXB5M3V1', '_blank');
     toast({
       title: "Opening Instagram",
       description: "Check out our latest work on Instagram...",
@@ -59,9 +59,9 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">AR</span>
+              <span className="text-white font-bold text-lg">NG</span>
             </div>
-            <span className="font-dancing text-2xl text-gray-800">Artisan Resin</span>
+            <span className="font-dancing text-2xl text-gray-800">Narpavi Gifts</span>
           </Link>
 
           {/* Desktop Navigation */}
