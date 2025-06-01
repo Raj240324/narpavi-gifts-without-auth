@@ -1,0 +1,228 @@
+
+import React, { useState } from 'react';
+import { Mail, MapPin, Clock, Instagram, Facebook } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
+
+const Contact = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: 'general',
+    message: ''
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+    });
+    console.log('Contact form submitted:', formData);
+    // Reset form
+    setFormData({ name: '', email: '', subject: 'general', message: '' });
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  return (
+    <div className="min-h-screen py-8">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="font-dancing text-5xl md:text-6xl text-gray-800 mb-4">Get In Touch</h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Have questions about our art or ready to start a custom project? We'd love to hear from you!
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl">Send us a Message</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="name">Full Name *</Label>
+                      <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="email">Email Address *</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="subject">Subject *</Label>
+                    <Select value={formData.subject} onValueChange={(value) => handleInputChange('subject', value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a subject" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="general">General Inquiry</SelectItem>
+                        <SelectItem value="custom-order">Custom Order Question</SelectItem>
+                        <SelectItem value="existing-order">Existing Order</SelectItem>
+                        <SelectItem value="shipping">Shipping & Returns</SelectItem>
+                        <SelectItem value="collaboration">Collaboration</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="message">Message *</Label>
+                    <Textarea
+                      id="message"
+                      placeholder="Tell us about your project or ask us anything..."
+                      value={formData.message}
+                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      className="min-h-[120px]"
+                      required
+                    />
+                  </div>
+
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-pink-400 hover:bg-pink-500 text-white text-lg py-3"
+                  >
+                    Send Message
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Contact Information */}
+          <div className="space-y-6">
+            {/* Contact Info Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Contact Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <Mail className="w-6 h-6 text-pink-400 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-gray-800">Email</h3>
+                    <p className="text-gray-600">hello@artisanresin.com</p>
+                    <p className="text-sm text-gray-500">We respond within 24 hours</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <MapPin className="w-6 h-6 text-pink-400 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-gray-800">Studio Location</h3>
+                    <p className="text-gray-600">Portland, Oregon</p>
+                    <p className="text-sm text-gray-500">By appointment only</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <Clock className="w-6 h-6 text-pink-400 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-gray-800">Response Time</h3>
+                    <p className="text-gray-600">Within 24 hours</p>
+                    <p className="text-sm text-gray-500">Monday - Friday, 9AM - 6PM PST</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Social Media */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Follow Our Journey</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-gray-600 text-sm">
+                  See our latest work and behind-the-scenes content on social media
+                </p>
+                <div className="flex space-x-4">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white"
+                  >
+                    <Instagram className="w-4 h-4 mr-2" />
+                    Instagram
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white"
+                  >
+                    <Facebook className="w-4 h-4 mr-2" />
+                    Facebook
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Newsletter Signup */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Stay Updated</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-gray-600 text-sm">
+                  Subscribe to our newsletter for exclusive previews, special offers, and art tips
+                </p>
+                <div className="space-y-2">
+                  <Input placeholder="Your email address" />
+                  <Button className="w-full bg-pink-400 hover:bg-pink-500 text-white">
+                    Subscribe
+                  </Button>
+                </div>
+                <p className="text-xs text-gray-500">
+                  We respect your privacy. Unsubscribe at any time.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* FAQ Preview */}
+        <div className="mt-16 text-center bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-12">
+          <h2 className="font-dancing text-4xl text-gray-800 mb-4">Quick Questions?</h2>
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Check out our frequently asked questions for instant answers about our services, 
+            shipping, and custom orders.
+          </p>
+          <Button 
+            size="lg" 
+            variant="outline"
+            className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white px-8"
+          >
+            View FAQ
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Contact;
