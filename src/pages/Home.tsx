@@ -1,52 +1,124 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowDown, Sparkles, Heart, Palette } from 'lucide-react';
+import { ArrowDown, Sparkles, Heart, Palette, Star, Gift, Clock, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TestimonialCard from '@/components/TestimonialCard';
 import KeyFeatures from '@/components/KeyFeatures';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
   const featuredWorks = [{
     id: '1',
-    name: 'Custom Pet Portrait',
+    name: 'Custom Portrait',
     image: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop',
     category: 'Pencil Art',
-    description: 'Capturing the essence of your beloved pet in detailed pencil work'
+    description: 'Handcrafted pencil portraits that capture the essence of your loved ones'
   }, {
     id: '2',
-    name: 'Ocean Wave Resin Tray',
+    name: 'Resin Art Tray',
     image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=400&fit=crop',
     category: 'Resin Art',
-    description: 'Handcrafted serving tray with beautiful ocean wave design'
+    description: 'Beautiful resin trays with unique designs and patterns'
   }, {
     id: '3',
-    name: 'Botanical Resin Bookmark',
+    name: 'Custom Bookmark',
     image: 'https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=400&h=400&fit=crop',
     category: 'Resin Gifts',
-    description: 'Delicate bookmarks featuring real pressed flowers'
+    description: 'Personalized resin bookmarks with embedded designs'
   }, {
     id: '4',
-    name: 'Family Portrait Sketch',
+    name: 'Family Portrait',
     image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=400&fit=crop',
     category: 'Pencil Art',
-    description: 'Capturing precious family moments in artistic detail'
+    description: 'Detailed family portraits that capture precious moments'
   }];
+
+  const galleryCategories = [
+    {
+      id: '1',
+      name: 'Pencil Art',
+      image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=600&fit=crop',
+      count: 24
+    },
+    {
+      id: '2',
+      name: 'Resin Art',
+      image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&h=600&fit=crop',
+      count: 18
+    },
+    {
+      id: '3',
+      name: 'Custom Gifts',
+      image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=600&fit=crop',
+      count: 32
+    },
+    {
+      id: '4',
+      name: 'Seasonal Collection',
+      image: 'https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=800&h=600&fit=crop',
+      count: 15
+    }
+  ];
+
+  const processSteps = [
+    {
+      id: '1',
+      title: 'Choose Your Design',
+      description: 'Browse our gallery or share your vision',
+      icon: <Palette className="w-8 h-8" />
+    },
+    {
+      id: '2',
+      title: 'Customize Details',
+      description: 'Add personal touches and preferences',
+      icon: <Star className="w-8 h-8" />
+    },
+    {
+      id: '3',
+      title: 'Crafting Process',
+      description: 'We create your piece with care',
+      icon: <Gift className="w-8 h-8" />
+    },
+    {
+      id: '4',
+      title: 'Quality Check',
+      description: 'Thorough inspection before delivery',
+      icon: <Shield className="w-8 h-8" />
+    }
+  ];
+
   const testimonials = [{
-    name: 'Sarah Johnson',
+    name: 'Priya Sharma',
     rating: 5,
-    review: 'The custom pet portrait exceeded all my expectations! The detail and emotion captured in pencil is absolutely stunning.',
-    product: 'Custom Pet Portrait'
+    review: 'The custom portrait exceeded all my expectations! The detail and emotion captured in pencil is absolutely stunning.',
+    product: 'Custom Portrait'
   }, {
-    name: 'Mike Chen',
+    name: 'Rahul Patel',
     rating: 5,
-    review: 'Beautiful resin coasters that look amazing in our living room. The ocean theme is so realistic and the quality is outstanding.',
-    product: 'Ocean Resin Coasters'
+    review: 'Beautiful resin coasters that look amazing in our living room. The quality and craftsmanship is outstanding.',
+    product: 'Resin Coasters'
   }, {
-    name: 'Emily Davis',
+    name: 'Ananya Singh',
     rating: 5,
-    review: 'Perfect gift for my book-loving sister! The botanical bookmark is delicate and gorgeous. Fast shipping too!',
-    product: 'Botanical Bookmark'
-  }];
+    review: 'Perfect gift for my book-loving sister! The custom bookmark is delicate and gorgeous. Fast shipping too!',
+    product: 'Custom Bookmark'
+  },
+   {
+    name: 'Vikram Mehta',
+    rating: 5,
+    review: 'The family portrait was incredibly accurate and captured our bond perfectly. Thank you!',
+    product: 'Family Portrait'
+  },
+  {
+    name: 'Neha Gupta',
+    rating: 5,
+    review: 'Absolutely stunning resin wall art! It adds such a vibrant touch to my living room. Highly recommend!',
+    product: 'Resin Wall Art'
+  }
+  ];
+
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -63,6 +135,37 @@ const Home = () => {
     animatedElements.forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1
+        }
+      }
+    ]
+  };
+
   return <div className="min-h-screen">
       {/* Enhanced Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -114,18 +217,18 @@ const Home = () => {
 
           {/* Enhanced CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button size="lg" className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
-              <Link to="/gallery" className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5" />
+            <Link to="/gallery" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <Sparkles className="w-5 h-5 mr-2" />
                 Explore Our Gallery
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" className="border-2 border-pink-400 text-pink-600 hover:bg-pink-400 hover:text-white px-8 py-4 text-lg shadow-lg transform hover:scale-105 transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <Link to="/custom-orders" className="flex items-center gap-2">
-                <Heart className="w-5 h-5" />
+              </Button>
+            </Link>
+            <Link to="/custom-orders" className="w-full sm:w-auto">
+              <Button variant="outline" size="lg" className="w-full border-2 border-pink-400 text-pink-600 hover:bg-pink-400 hover:text-white px-8 py-4 text-lg shadow-lg transform hover:scale-105 transition-all duration-300 bg-white/80 backdrop-blur-sm">
+                <Heart className="w-5 h-5 mr-2" />
                 Commission Art
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
 
           {/* Trust Indicators */}
@@ -139,7 +242,7 @@ const Home = () => {
             <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
             <span>✨ Handcrafted Quality</span>
             <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <span>🚚 Worldwide Shipping</span>
+            <span>🚚 India Shipping</span>
           </div>
         </div>
         
@@ -186,8 +289,65 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Work */}
+      {/* Gallery Categories Section */}
+      <section className="py-20 bg-white scroll-animate opacity-0">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">Explore Our Collections</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover our diverse range of handcrafted gifts and art pieces
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {galleryCategories.map((category) => (
+              <div key={category.id} className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="aspect-w-4 aspect-h-3">
+                  <img 
+                    src={category.image} 
+                    alt={category.name}
+                    className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+                  <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
+                  <p className="text-white/80">{category.count} items</p>
+                  <Link to={`/gallery?category=${category.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <Button variant="ghost" className="mt-4 text-white hover:text-pink-200 hover:bg-white/10">
+                      View Collection
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
       <section className="py-20 bg-gray-50 scroll-animate opacity-0">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">How We Work</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Our simple and transparent process ensures your perfect gift
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processSteps.map((step) => (
+              <div key={step.id} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="text-pink-500 mb-4">{step.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                <p className="text-gray-600">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Work Section */}
+      <section className="py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">Featured Work</h2>
@@ -196,98 +356,73 @@ const Home = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {featuredWorks.map((work, index) => <div key={work.id} className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 bg-white rounded-lg" style={{
-            animationDelay: `${index * 100}ms`
-          }}>
-                <div className="relative overflow-hidden">
-                  <img src={work.image} alt={work.name} className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                </div>
-                
-                <div className="p-4">
-                  <div className="space-y-2">
-                    <p className="text-xs text-gray-500 uppercase tracking-wide">{work.category}</p>
-                    <h3 className="font-semibold text-gray-800 group-hover:text-pink-400 transition-colors">
-                      {work.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">{work.description}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredWorks.map((work, index) => (
+              <div 
+                key={work.id} 
+                className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 bg-white rounded-lg"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="relative overflow-hidden aspect-w-1 aspect-h-1">
+                  <img 
+                    src={work.image} 
+                    alt={work.name}
+                    className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <span className="text-sm text-white/80">{work.category}</span>
+                      <h3 className="text-xl font-semibold text-white mb-2">{work.name}</h3>
+                      <p className="text-white/90 text-sm">{work.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>)}
-          </div>
-          
-          <div className="text-center">
-            <Button size="lg" className="bg-pink-400 hover:bg-pink-500 text-white px-8">
-              <Link to="/gallery">View Complete Gallery</Link>
-            </Button>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-20 bg-white scroll-animate opacity-0">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">What We Create</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              From custom portraits to unique resin art, we specialize in creating meaningful pieces
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-pink-50 to-purple-50">
-              <h3 className="font-dancing text-2xl text-gray-800 mb-4">Custom Portraits</h3>
-              <p className="text-gray-600">Bringing your loved ones to life through detailed pencil artistry</p>
-            </div>
-            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-purple-50 to-green-50">
-              <h3 className="font-dancing text-2xl text-gray-800 mb-4">Resin Art</h3>
-              <p className="text-gray-600">Functional art pieces that blend beauty with everyday utility</p>
-            </div>
-            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-green-50 to-pink-50">
-              <h3 className="font-dancing text-2xl text-gray-800 mb-4">Custom Gifts</h3>
-              <p className="text-gray-600">Personalized keepsakes that celebrate special moments</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
+      {/* Testimonials Section */}
       <section className="py-20 bg-gray-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">What Our Clients Say</h2>
+            <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">What Our Customers Say</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Read about the experiences of customers who have received our handcrafted pieces
+              Join hundreds of satisfied customers who have found their perfect gift
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => <div key={index} style={{
-            animationDelay: `${index * 150}ms`
-          }}>
+          <Slider {...settings} className="px-4">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="px-2">
                 <TestimonialCard {...testimonial} />
-              </div>)}
-          </div>
-          
-          <div className="text-center mt-12">
-            <Button variant="outline" className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white">
-              <Link to="/testimonials">Read More Reviews</Link>
-            </Button>
-          </div>
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-pink-400 to-purple-400 scroll-animate opacity-0">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-white">
-            <h2 className="font-dancing text-4xl md:text-5xl mb-6">Ready to Create Something Special?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Let us bring your vision to life with a custom piece that's uniquely yours
-            </p>
-            <Button size="lg" variant="outline" className="border-white hover:bg-white px-8 py-3 text-pink-500">
-              <Link to="/custom-orders">Start Your Commission</Link>
+      {/* Call to Action Section */}
+      <section className="py-20 bg-gradient-to-r from-pink-500 to-purple-600 scroll-animate opacity-0">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="font-dancing text-4xl md:text-5xl text-white mb-6">Ready to Create Your Perfect Gift?</h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Let's transform your vision into a beautiful, handcrafted masterpiece
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-white text-pink-600 hover:bg-pink-50 px-8 py-4 text-lg">
+              <Link to="/custom-orders" className="flex items-center gap-2">
+                <Gift className="w-5 h-5" />
+                Start Your Order
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" className="border-2 border-white text-pink-600
+             hover:bg-white/10 px-8 py-4 text-lg">
+              <Link to="/contact" className="flex items-center gap-2">
+                <Clock className="w-5 h-5" />
+                Schedule Consultation
+              </Link>
             </Button>
           </div>
         </div>

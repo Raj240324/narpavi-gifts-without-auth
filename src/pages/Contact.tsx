@@ -223,6 +223,9 @@ const Contact = () => {
                 </form>
               </CardContent>
             </Card>
+
+          
+
           </div>
 
           {/* Contact Information */}
@@ -307,35 +310,8 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            {/* Newsletter Signup */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-xl">Stay Updated</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600 text-sm">
-                  Subscribe to our newsletter for exclusive previews, special offers, and art tips
-                </p>
-                <form onSubmit={handleNewsletterSubmit} className="space-y-2">
-                  <Input 
-                    type="email"
-                    placeholder="Your email address" 
-                    value={newsletterEmail}
-                    onChange={(e) => setNewsletterEmail(e.target.value)}
-                    required
-                  />
-                  <Button 
-                    type="submit"
-                    className="w-full bg-pink-400 hover:bg-pink-500 text-white"
-                  >
-                    Subscribe
-                  </Button>
-                </form>
-                <p className="text-xs text-gray-500">
-                  We respect your privacy. Unsubscribe at any time.
-                </p>
-              </CardContent>
-            </Card>
+        
+
           </div>
         </div>
 

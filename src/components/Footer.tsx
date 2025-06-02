@@ -80,14 +80,20 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">NG</span>
+              <div className="w-8 h-8 relative">
+                <img 
+                  src="/np-logo.png" 
+                  alt="Narpavi Gifts Logo" 
+                  className="w-full h-full object-contain"
+                />
               </div>
               <span className="font-dancing text-xl">Narpavi Gifts</span>
             </div>
             <p className="text-gray-400 text-sm">
-              Handcrafted pencil art and resin gifts made with love. Creating unique, 
-              personalized pieces that tell your story.
+              <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-pink-500 bg-clip-text text-transparent font-medium">
+                Handcrafted with Love
+              </span>
+              . Creating unique, personalized pieces that tell your story.
             </p>
             <div className="flex space-x-3">
               <Button 
@@ -124,7 +130,9 @@ const Footer = () => {
               <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="/gallery" className="text-gray-400 hover:text-white transition-colors">Gallery</Link></li>
               <li><Link to="/custom-orders" className="text-gray-400 hover:text-white transition-colors">Services</Link></li>
-              <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Form</Link></li>
+              <li><Link to="/testimonials" className="text-gray-400 hover:text-white transition-colors">Testimonials</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
             </ul>
           </div>
 
@@ -150,9 +158,15 @@ const Footer = () => {
                   Instagram Gallery
                 </button>
               </li>
-              <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Form</Link></li>
-              <li><Link to="/testimonials" className="text-gray-400 hover:text-white transition-colors">Testimonials</Link></li>
-              <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
+              <li>
+                <button 
+                  onClick={handleEmailClick}
+                  className="text-gray-400 hover:text-pink-400 transition-colors flex items-center gap-2"
+                >
+                  <Mail className="w-3 h-3" />
+                  Email Us
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -183,13 +197,13 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Narpavi Gifts. All rights reserved.
+            © 2025 Narpavi Gifts. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/faq" className="text-gray-400 text-sm hover:text-white transition-colors">
+            <Link to="/privacy-policy" className="text-gray-400 text-sm hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link to="/faq" className="text-gray-400 text-sm hover:text-white transition-colors">
+            <Link to="/terms-of-service" className="text-gray-400 text-sm hover:text-white transition-colors">
               Terms of Service
             </Link>
           </div>

@@ -1,9 +1,7 @@
-
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import WhatsAppFloat from './WhatsAppFloat';
 
 const Layout = () => {
   const location = useLocation();
@@ -20,7 +18,6 @@ const Layout = () => {
         <Outlet />
       </main>
       <Footer />
-      <WhatsAppFloat />
     </div>
   );
 };

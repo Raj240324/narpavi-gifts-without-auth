@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,8 +9,11 @@ const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('popularity');
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const productsPerPage = 12;
 
-  const products = [
+  const allProducts = [
     {
       id: '1',
       name: 'Custom Pet Portrait',
@@ -80,11 +82,41 @@ const Shop = () => {
 
   const categories = ['all', 'Pencil Art', 'Resin Art', 'Resin Gifts', 'Custom Orders'];
 
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const [filteredProducts, setFilteredProducts] = useState(allProducts);
+
+  useEffect(() => {
+    const filtered = allProducts.filter(product => {
+      const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+
+    // Apply sorting
+    const sorted = [...filtered].sort((a, b) => {
+      switch (sortBy) {
+        case 'price-low':
+          return a.price - b.price;
+        case 'price-high':
+          return b.price - a.price;
+        case 'newest':
+          return b.isNew ? 1 : -1;
+        default: // popularity
+          return 0;
+      }
+    });
+
+    setFilteredProducts(sorted);
+    setLoading(false);
+  }, [selectedCategory, searchTerm, sortBy]);
+
+  const handleLoadMore = () => {
+    setPage(prev => prev + 1);
+    const nextPageProducts = allProducts.slice(
+      (page * productsPerPage),
+      ((page + 1) * productsPerPage)
+    );
+    setFilteredProducts(prev => [...prev, ...nextPageProducts]);
+  };
 
   return (
     <div className="min-h-screen py-8">
@@ -183,8 +215,10 @@ const Shop = () => {
             <Button 
               size="lg" 
               className="bg-pink-400 hover:bg-pink-500 text-white px-8"
+              onClick={handleLoadMore}
+              disabled={filteredProducts.length >= allProducts.length}
             >
-              Load More Products
+              {filteredProducts.length >= allProducts.length ? 'No More Products' : 'Load More Products'}
             </Button>
           </div>
         )}

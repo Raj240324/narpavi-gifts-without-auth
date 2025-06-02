@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Palette, Heart, Truck, Shield, Star, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -21,9 +20,9 @@ const KeyFeatures = () => {
       description: "Beautiful functional art pieces that blend elegance with utility"
     },
     {
-      icon: <Truck className="w-8 h-8 text-blue-500" />,
-      title: "Worldwide Shipping",
-      description: "Safe and secure delivery to your doorstep anywhere in the world"
+      icon: "🚚",
+      title: "India Shipping",
+      description: "We offer fast and reliable shipping throughout India.",
     },
     {
       icon: <Shield className="w-8 h-8 text-green-500" />,

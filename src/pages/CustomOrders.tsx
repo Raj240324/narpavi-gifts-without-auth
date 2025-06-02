@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Upload, Calendar, DollarSign, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,9 +7,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const CustomOrders = () => {
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,16 +21,129 @@ const CustomOrders = () => {
     timeline: '',
     budget: '',
     description: '',
-    referenceImages: null
+    referenceImages: null as FileList | null
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFormData(prev => ({ ...prev, referenceImages: e.target.files }));
+    }
+  };
+
+  const uploadFiles = async (files: FileList): Promise<string[]> => {
+    const uploadedUrls: string[] = [];
+    
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `custom-orders/${fileName}`;
+
+      try {
+        const { error: uploadError, data } = await supabase.storage
+          .from('custom-orders')
+          .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('custom-orders')
+          .getPublicUrl(filePath);
+
+        uploadedUrls.push(publicUrl);
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        throw error;
+      }
+    }
+
+    return uploadedUrls;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Custom Order Submitted!",
-      description: "We'll review your request and get back to you within 24 hours.",
-    });
-    console.log('Custom order submitted:', formData);
+    setIsSubmitting(true);
+
+    try {
+      let imageUrls: string[] = [];
+      
+      // Upload files if any
+      if (formData.referenceImages && formData.referenceImages.length > 0) {
+        imageUrls = await uploadFiles(formData.referenceImages);
+      }
+
+      console.log('Submitting form data:', {
+        customer_name: formData.name,
+        customer_email: formData.email,
+        customer_phone: formData.phone,
+        order_type: formData.projectType,
+        description: formData.description,
+        budget_range: formData.budget,
+        timeline: formData.timeline,
+        status: 'pending',
+        reference_images: imageUrls
+      });
+
+      const { data, error } = await supabase
+        .from('custom_orders')
+        .insert({
+          customer_name: formData.name,
+          customer_email: formData.email,
+          customer_phone: formData.phone,
+          order_type: formData.projectType,
+          description: formData.description,
+          budget_range: formData.budget,
+          timeline: formData.timeline,
+          status: 'pending',
+          reference_images: imageUrls
+        })
+        .select();
+
+      if (error) {
+        console.error('Supabase error details:', {
+          code: error.code,
+          message: error.message,
+          details: error.details,
+          hint: error.hint
+        });
+        throw error;
+      }
+
+      console.log('Successfully inserted data:', data);
+
+      toast({
+        title: "Custom Order Submitted!",
+        description: "We'll review your request and get back to you within 24 hours.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        projectType: '',
+        size: '',
+        timeline: '',
+        budget: '',
+        description: '',
+        referenceImages: null
+      });
+      setUploadedFiles([]);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error('Error submitting custom order:', error);
+      toast({
+        title: "Error",
+        description: "Failed to submit custom order. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: any) => {
@@ -174,10 +288,10 @@ const CustomOrders = () => {
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="under-50">Under $50</SelectItem>
-                            <SelectItem value="50-100">$50 - $100</SelectItem>
-                            <SelectItem value="100-200">$100 - $200</SelectItem>
-                            <SelectItem value="200-plus">$200+</SelectItem>
+                            <SelectItem value="under-5000">Under ₹5000</SelectItem>
+                            <SelectItem value="5000-10000">₹5000 - ₹10,000</SelectItem>
+                            <SelectItem value="10000-20000">₹10,000 - ₹20,000</SelectItem>
+                            <SelectItem value="20000-plus">₹20,000+</SelectItem>
                             <SelectItem value="discuss">Let's discuss</SelectItem>
                           </SelectContent>
                         </Select>
@@ -212,22 +326,39 @@ const CustomOrders = () => {
                         </div>
                         <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                       </div>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" multiple />
+                      <input 
+                        id="file-upload" 
+                        name="file-upload" 
+                        type="file" 
+                        className="sr-only" 
+                        multiple 
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        accept="image/*"
+                      />
                     </div>
+                    {formData.referenceImages && formData.referenceImages.length > 0 && (
+                      <div className="mt-2">
+                        <p className="text-sm text-gray-600">
+                          {formData.referenceImages.length} file(s) selected
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <Button 
                     type="submit" 
                     className="w-full bg-pink-400 hover:bg-pink-500 text-white text-lg py-3"
+                    disabled={isSubmitting}
                   >
-                    Submit Custom Order Request
+                    {isSubmitting ? 'Submitting...' : 'Submit Custom Order Request'}
                   </Button>
                 </form>
               </CardContent>
             </Card>
           </div>
 
-          {/* Process & Gallery */}
+          {/* Process & Pricing */}
           <div className="order-1 lg:order-2 space-y-8">
             {/* Process */}
             <Card>
@@ -241,7 +372,7 @@ const CustomOrders = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold">Submit Your Request</h4>
-                    <p className="text-sm text-gray-600">Fill out the form with your vision and requirements</p>
+                    <p className="text-sm text-gray-600">Fill out the form below with details about your vision, including project type, size, timeline, and budget. Upload any reference images you have.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -249,8 +380,8 @@ const CustomOrders = () => {
                     2
                   </div>
                   <div>
-                    <h4 className="font-semibold">Get Your Quote</h4>
-                    <p className="text-sm text-gray-600">We'll review and send you a detailed quote within 24 hours</p>
+                    <h4 className="font-semibold">Receive a Personalized Quote & Timeline</h4>
+                    <p className="text-sm text-gray-600">We will review your submission and get back to you within 24 hours with a detailed quote and estimated timeline for completion.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -258,8 +389,8 @@ const CustomOrders = () => {
                     3
                   </div>
                   <div>
-                    <h4 className="font-semibold">Creation Process</h4>
-                    <p className="text-sm text-gray-600">We'll keep you updated with progress photos throughout</p>
+                    <h4 className="font-semibold">Art Creation & Updates</h4>
+                    <p className="text-sm text-gray-600">Once the quote is approved, we begin crafting your custom piece. We'll keep you updated with progress photos during the creation process to ensure it meets your expectations.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -267,46 +398,58 @@ const CustomOrders = () => {
                     4
                   </div>
                   <div>
-                    <h4 className="font-semibold">Delivery</h4>
-                    <p className="text-sm text-gray-600">Your custom piece arrives carefully packaged and ready to treasure</p>
+                    <h4 className="font-semibold">Final Approval & Delivery</h4>
+                    <p className="text-sm text-gray-600">Upon completion, you'll receive final photos for approval. Once approved, your finished piece is carefully packaged and shipped securely to your address in India.</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Pricing Guide */}
+            {/* Detailed Pricing Guide */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Pricing Guide</CardTitle>
+                <CardTitle className="text-2xl">Detailed Pricing Guide (Estimates)</CardTitle>
+                <CardDescription>
+                  Please note that these are starting prices. A final quote will be provided based on the complexity and specific requirements of your custom order.
+                </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <DollarSign className="w-5 h-5 text-pink-400" />
-                  <div>
-                    <span className="font-semibold">Pencil Portraits:</span>
-                    <span className="text-gray-600 ml-2">Starting at $65</span>
-                  </div>
+              <CardContent className="space-y-6">
+                <div>
+                  <h3 className="font-semibold text-xl mb-2">Pencil Portraits</h3>
+                  <ul className="list-disc list-inside space-y-1 text-gray-600">
+                    <li>Small (8x10 inches): Starting from ₹5000</li>
+                    <li>Medium (11x14 inches): Starting from ₹8000</li>
+                    <li>Large (16x20 inches): Starting from ₹12000</li>
+                    <li>Additional subjects (people/pets): +₹2000 per subject</li>
+                    <li>Complex backgrounds: Starting from +₹1000</li>
+                  </ul>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <DollarSign className="w-5 h-5 text-pink-400" />
-                  <div>
-                    <span className="font-semibold">Resin Art Pieces:</span>
-                    <span className="text-gray-600 ml-2">Starting at $35</span>
-                  </div>
+                <div>
+                  <h3 className="font-semibold text-xl mb-2">Resin Art Pieces</h3>
+                   <ul className="list-disc list-inside space-y-1 text-gray-600">
+                    <li>Coaster Set (4 pcs): Starting from ₹2500</li>
+                    <li>Small Tray: Starting from ₹3500</li>
+                    <li>Medium Wall Art: Starting from ₹6000</li>
+                    <li>Large Wall Art: Starting from ₹10000</li>
+                    <li>Inclusions (flowers, glitter, etc.): Prices vary based on material</li>
+                  </ul>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Clock className="w-5 h-5 text-pink-400" />
-                  <div>
-                    <span className="font-semibold">Typical Timeline:</span>
-                    <span className="text-gray-600 ml-2">2-3 weeks</span>
-                  </div>
+                 <div>
+                  <h3 className="font-semibold text-xl mb-2">Resin Gifts & Keepsakes</h3>
+                   <ul className="list-disc list-inside space-y-1 text-gray-600">
+                    <li>Bookmarks: Starting from ₹500</li>
+                    <li>Keychains: Starting from ₹300</li>
+                    <li>Memorial Pieces: Starting from ₹4000 (varies based on size and inclusions)</li>
+                    <li>Jewelry (pendants, earrings): Starting from ₹800</li>
+                  </ul>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Calendar className="w-5 h-5 text-pink-400" />
-                  <div>
-                    <span className="font-semibold">Rush Orders:</span>
-                    <span className="text-gray-600 ml-2">Available (+50%)</span>
-                  </div>
+                 <div>
+                  <h3 className="font-semibold text-xl mb-2">Timeline Estimates</h3>
+                   <ul className="list-disc list-inside space-y-1 text-gray-600">
+                    <li>Standard Orders: 2-3 weeks</li>
+                    <li>Complex Orders: 3-4 weeks or more</li>
+                    <li>Rush Orders: 1 week (additional 50% fee)</li>
+                  </ul>
                 </div>
               </CardContent>
             </Card>

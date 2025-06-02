@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Plus, Minus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -16,17 +15,17 @@ const FAQ = () => {
         {
           id: 1,
           question: 'How long does shipping take?',
-          answer: 'Standard shipping takes 5-7 business days within the US. Express shipping (2-3 days) and overnight options are available for an additional fee. International shipping typically takes 10-14 business days.'
+          answer: 'Standard shipping within India typically takes 5-7 business days. Delivery times may vary depending on your location.'
         },
         {
           id: 2,
           question: 'Do you ship internationally?',
-          answer: 'Yes! We ship worldwide. International shipping costs and delivery times vary by location. Please note that customs fees and import duties may apply and are the responsibility of the recipient.'
+          answer: 'Currently, we only offer shipping within India.'
         },
         {
           id: 3,
           question: 'How are items packaged?',
-          answer: 'All items are carefully wrapped in protective materials and placed in sturdy boxes to ensure safe delivery. Resin pieces receive extra padding, and artwork is protected with acid-free materials.'
+          answer: 'All items are carefully wrapped in protective materials and placed in sturdy boxes to ensure safe delivery within India. Resin pieces receive extra padding, and artwork is protected with acid-free materials.'
         }
       ]
     },
@@ -81,17 +80,17 @@ const FAQ = () => {
         {
           id: 11,
           question: 'What is your return policy?',
-          answer: 'Ready-made items can be returned within 30 days in original condition for a full refund. Custom pieces are non-returnable unless there\'s a defect or error on our part. Return shipping is the customer\'s responsibility.'
+          answer: 'Ready-made items can be returned within 30 days in original condition for a full refund. Custom pieces are non-returnable unless there\'s a defect or error on our part. Return shipping costs for eligible returns within India are the customer\'s responsibility.'
         },
         {
           id: 12,
           question: 'What if my item arrives damaged?',
-          answer: 'If your item arrives damaged, please contact us within 48 hours with photos. We\'ll arrange for a replacement or full refund, including return shipping costs. All shipments are insured for your protection.'
+          answer: 'If your item arrives damaged during shipping within India, please contact us within 48 hours with photos. We\'ll arrange for a replacement or full refund, including return shipping costs. All shipments are insured for your protection.'
         },
         {
           id: 13,
           question: 'Can I exchange for a different size?',
-          answer: 'Ready-made items can be exchanged for different sizes within 30 days, subject to availability. Custom pieces cannot be exchanged as they\'re made specifically for you. Size changes to custom orders must be made before work begins.'
+          answer: 'Ready-made items can be exchanged for different sizes within 30 days, subject to availability. Custom pieces cannot be exchanged as they\'re made specifically for you.'
         }
       ]
     },
@@ -111,7 +110,7 @@ const FAQ = () => {
         {
           id: 16,
           question: 'How much do custom portraits cost?',
-          answer: 'Custom portrait pricing starts at $65 for small pencil drawings and varies based on size, complexity, and medium. Detailed quotes are provided after reviewing your specific requirements and reference materials.'
+          answer: 'Custom portrait pricing starts from ₹5000 for small pencil drawings and varies based on size, complexity, and medium. Detailed quotes are provided after reviewing your specific requirements and reference materials.'
         }
       ]
     }
