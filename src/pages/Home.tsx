@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Sparkles, Heart, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TestimonialCard from '@/components/TestimonialCard';
 
@@ -80,38 +80,102 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Enhanced Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-pink-100 via-purple-50 to-green-100" />
-        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent" />
         
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4 animate-fade-in">
-          <h1 className="font-dancing text-6xl md:text-8xl text-gray-800 mb-6">
-            Artisan Resin
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-pink-200/30 rounded-full animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-12 h-12 bg-purple-200/30 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/6 w-8 h-8 bg-green-200/30 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-1/4 right-1/6 w-20 h-20 bg-pink-100/40 rounded-full animate-bounce" style={{ animationDelay: '3s' }}></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 text-center max-w-5xl mx-auto px-4 animate-fade-in">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 shadow-lg">
+            <Sparkles className="w-4 h-4 text-pink-500" />
+            <span className="text-sm font-medium text-gray-700">Handcrafted with Love</span>
+            <Heart className="w-4 h-4 text-red-500 animate-pulse" />
+          </div>
+
+          <h1 className="font-dancing text-6xl md:text-8xl text-gray-800 mb-6 relative">
+            <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
+              Narpavi Gifts
+            </span>
+            <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6">
+              <Palette className="w-8 h-8 md:w-12 md:h-12 text-pink-400 animate-bounce" />
+            </div>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Handcrafted pencil art and resin gifts that tell your unique story. 
-            Each piece is lovingly created to capture life's most precious moments.
+          
+          <p className="text-xl md:text-2xl text-gray-600 mb-4 max-w-3xl mx-auto leading-relaxed">
+            Transform precious memories into stunning 
+            <span className="font-semibold text-pink-600"> pencil portraits</span> and 
+            <span className="font-semibold text-purple-600"> resin masterpieces</span>
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          
+          <p className="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">
+            Each piece tells a unique story, lovingly crafted to capture life's most beautiful moments
+          </p>
+
+          {/* Enhanced CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Button 
               size="lg" 
-              className="bg-pink-400 hover:bg-pink-500 text-white px-8 py-3 text-lg"
+              className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
-              <Link to="/gallery">View Our Work</Link>
+              <Link to="/gallery" className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5" />
+                Explore Our Gallery
+              </Link>
             </Button>
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white px-8 py-3 text-lg"
+              className="border-2 border-pink-400 text-pink-600 hover:bg-pink-400 hover:text-white px-8 py-4 text-lg shadow-lg transform hover:scale-105 transition-all duration-300 bg-white/80 backdrop-blur-sm"
             >
-              <Link to="/custom-orders">Commission Artwork</Link>
+              <Link to="/custom-orders" className="flex items-center gap-2">
+                <Heart className="w-5 h-5" />
+                Commission Art
+              </Link>
             </Button>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-yellow-400">★</span>
+                ))}
+              </div>
+              <span>500+ Happy Customers</span>
+            </div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+            <span>✨ Handcrafted Quality</span>
+            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+            <span>🚚 Worldwide Shipping</span>
           </div>
         </div>
         
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ArrowDown className="w-6 h-6 text-gray-400" />
+        {/* Enhanced Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+          <div className="flex flex-col items-center gap-2 animate-bounce">
+            <span className="text-xs text-gray-400 uppercase tracking-wide">Discover More</span>
+            <ArrowDown className="w-5 h-5 text-gray-400" />
+          </div>
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-20 left-10 hidden lg:block">
+          <div className="w-32 h-32 border-2 border-pink-200/50 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
+        </div>
+        <div className="absolute bottom-20 right-10 hidden lg:block">
+          <div className="w-24 h-24 border-2 border-purple-200/50 rounded-full animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
         </div>
       </section>
 
