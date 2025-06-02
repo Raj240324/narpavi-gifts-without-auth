@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Mail, MapPin, Clock, Instagram, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -18,30 +18,82 @@ const Contact = () => {
     message: ''
   });
   const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you within 24 hours.",
-    });
-    console.log('Contact form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', subject: 'general', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+      });
+      
+      // Reset form
+      setFormData({ name: '', email: '', subject: 'general', message: '' });
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newsletterEmail) {
-      toast({
-        title: "Subscribed!",
-        description: "Thank you for subscribing to our newsletter.",
-      });
+    if (!newsletterEmail) return;
+
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscriptions')
+        .insert({
+          email: newsletterEmail
+        });
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation
+          toast({
+            title: "Already Subscribed",
+            description: "This email is already subscribed to our newsletter.",
+          });
+        } else {
+          throw error;
+        }
+      } else {
+        toast({
+          title: "Subscribed!",
+          description: "Thank you for subscribing to our newsletter.",
+        });
+      }
+      
       setNewsletterEmail('');
+    } catch (error) {
+      console.error('Error subscribing to newsletter:', error);
+      toast({
+        title: "Error",
+        description: "Failed to subscribe. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -164,8 +216,9 @@ const Contact = () => {
                   <Button 
                     type="submit" 
                     className="w-full bg-pink-400 hover:bg-pink-500 text-white text-lg py-3"
+                    disabled={isSubmitting}
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </form>
               </CardContent>

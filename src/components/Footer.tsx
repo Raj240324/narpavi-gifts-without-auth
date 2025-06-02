@@ -1,23 +1,50 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Instagram, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const { toast } = useToast();
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      toast({
-        title: "Subscribed!",
-        description: "Thank you for subscribing to our newsletter.",
-      });
+    if (!email) return;
+
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscriptions')
+        .insert({
+          email: email
+        });
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation
+          toast({
+            title: "Already Subscribed",
+            description: "This email is already subscribed to our newsletter.",
+          });
+        } else {
+          throw error;
+        }
+      } else {
+        toast({
+          title: "Subscribed!",
+          description: "Thank you for subscribing to our newsletter.",
+        });
+      }
+      
       setEmail('');
+    } catch (error) {
+      console.error('Error subscribing to newsletter:', error);
+      toast({
+        title: "Error",
+        description: "Failed to subscribe. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
