@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ArrowDown, Sparkles, Heart, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TestimonialCard from '@/components/TestimonialCard';
+import KeyFeatures from '@/components/KeyFeatures';
+
 const Home = () => {
   const featuredWorks = [{
     id: '1',
@@ -163,6 +165,9 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Key Features Section */}
+      <KeyFeatures />
+
       {/* Brand Story */}
       <section className="py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
@@ -289,4 +294,5 @@ const Home = () => {
       </section>
     </div>;
 };
+
 export default Home;
