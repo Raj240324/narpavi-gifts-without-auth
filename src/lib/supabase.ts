@@ -1,20 +1,35 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
+  throw new Error('Missing Supabase environment variables. Please check your .env file.');
 }
 
-// Create a single instance of the Supabase client
-const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-    storageKey: 'narpavi-gifts-auth'
-  }
-})
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export { supabase } 
+// Database types for testimonials
+export interface Review {
+  id: number;
+  name: string;
+  rating: number;
+  review: string;
+  product: string;
+  category: string;
+  date: string;
+  location: string;
+  verified: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface CreateReviewData {
+  name: string;
+  rating: number;
+  review: string;
+  product: string;
+  category: string;
+  location?: string;
+  verified?: boolean;
+} 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowDown, Sparkles, Heart, Palette, Star, Gift, Clock, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,8 +7,38 @@ import KeyFeatures from '@/components/KeyFeatures';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { TestimonialsService } from '@/lib/testimonialsService';
+import { Review } from '@/lib/supabase';
 
 const Home = () => {
+  const [testimonials, setTestimonials] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch testimonials from Supabase
+  useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        setLoading(true);
+        const testimonialsData = await TestimonialsService.getAllTestimonials();
+        
+        // If no testimonials in database, use empty array (no fallback)
+        if (testimonialsData.length === 0) {
+          setTestimonials([]);
+        } else {
+          // Take only the first 5 testimonials for the homepage
+          setTestimonials(testimonialsData.slice(0, 5));
+        }
+      } catch (error) {
+        console.error('Error loading testimonials:', error);
+        setTestimonials([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadTestimonials();
+  }, []);
+
   const featuredWorks = [{
     id: '1',
     name: 'Custom Portrait',
@@ -87,36 +117,6 @@ const Home = () => {
       description: 'Thorough inspection before delivery',
       icon: <Shield className="w-8 h-8" />
     }
-  ];
-
-  const testimonials = [{
-    name: 'Priya Sharma',
-    rating: 5,
-    review: 'The custom portrait exceeded all my expectations! The detail and emotion captured in pencil is absolutely stunning.',
-    product: 'Custom Portrait'
-  }, {
-    name: 'Rahul Patel',
-    rating: 5,
-    review: 'Beautiful resin coasters that look amazing in our living room. The quality and craftsmanship is outstanding.',
-    product: 'Resin Coasters'
-  }, {
-    name: 'Ananya Singh',
-    rating: 5,
-    review: 'Perfect gift for my book-loving sister! The custom bookmark is delicate and gorgeous. Fast shipping too!',
-    product: 'Custom Bookmark'
-  },
-   {
-    name: 'Vikram Mehta',
-    rating: 5,
-    review: 'The family portrait was incredibly accurate and captured our bond perfectly. Thank you!',
-    product: 'Family Portrait'
-  },
-  {
-    name: 'Neha Gupta',
-    rating: 5,
-    review: 'Absolutely stunning resin wall art! It adds such a vibrant touch to my living room. Highly recommend!',
-    product: 'Resin Wall Art'
-  }
   ];
 
   useEffect(() => {
@@ -237,7 +237,7 @@ const Home = () => {
               <div className="flex">
                 {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400">★</span>)}
               </div>
-              <span>500+ Happy Customers</span>
+              <span>{testimonials.length}+ Happy Customers</span>
             </div>
             <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
             <span>✨ Handcrafted Quality</span>
@@ -393,13 +393,33 @@ const Home = () => {
             </p>
           </div>
           
-          <Slider {...settings} className="px-4">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="px-2">
-                <TestimonialCard {...testimonial} />
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading customer reviews...</p>
+            </div>
+          ) : testimonials.length > 0 ? (
+            <Slider {...settings} className="px-4">
+              {testimonials.map((testimonial, index) => (
+                <div key={testimonial.id} className="px-2">
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
+              ))}
+            </Slider>
+          ) : (
+            <div className="text-center py-12">
+              <div className="bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto">
+                <Star className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">No reviews yet</h3>
+                <p className="text-gray-600 mb-4">Be the first to share your experience!</p>
+                <Link to="/testimonials">
+                  <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white">
+                    View All Reviews
+                  </Button>
+                </Link>
               </div>
-            ))}
-          </Slider>
+            </div>
+          )}
         </div>
       </section>
 

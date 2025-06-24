@@ -4,7 +4,6 @@ import { Mail, Instagram, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -14,38 +13,14 @@ const Footer = () => {
     e.preventDefault();
     if (!email) return;
 
-    try {
-      const { error } = await supabase
-        .from('newsletter_subscriptions')
-        .insert({
-          email: email
-        });
-
-      if (error) {
-        if (error.code === '23505') { // Unique constraint violation
-          toast({
-            title: "Already Subscribed",
-            description: "This email is already subscribed to our newsletter.",
-          });
-        } else {
-          throw error;
-        }
-      } else {
-        toast({
-          title: "Subscribed!",
-          description: "Thank you for subscribing to our newsletter.",
-        });
-      }
-      
-      setEmail('');
-    } catch (error) {
-      console.error('Error subscribing to newsletter:', error);
+    // Simulate newsletter subscription
+    setTimeout(() => {
       toast({
-        title: "Error",
-        description: "Failed to subscribe. Please try again.",
-        variant: "destructive"
+        title: "Subscribed!",
+        description: "Thank you for subscribing to our newsletter.",
       });
-    }
+      setEmail('');
+    }, 500);
   };
 
   const handleWhatsAppClick = () => {
@@ -200,10 +175,10 @@ const Footer = () => {
             © 2025 Narpavi Gifts. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/privacy-policy" className="text-gray-400 text-sm hover:text-white transition-colors">
+            <Link to="/privacy-policy" className="text-gray-400 hover:text-white text-sm transition-colors">
               Privacy Policy
             </Link>
-            <Link to="/terms-of-service" className="text-gray-400 text-sm hover:text-white transition-colors">
+            <Link to="/terms-of-service" className="text-gray-400 hover:text-white text-sm transition-colors">
               Terms of Service
             </Link>
           </div>

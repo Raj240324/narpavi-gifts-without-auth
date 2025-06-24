@@ -1,7 +1,5 @@
-
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 
 export interface CustomOrderFormData {
   customerName: string;
@@ -33,21 +31,8 @@ export const useCustomOrderForm = () => {
   const submitOrder = async () => {
     setIsSubmitting(true);
 
-    try {
-      const { error } = await supabase
-        .from('custom_orders')
-        .insert({
-          customer_name: formData.customerName,
-          customer_email: formData.customerEmail,
-          customer_phone: formData.customerPhone || null,
-          order_type: formData.orderType,
-          description: formData.description,
-          budget_range: formData.budgetRange || null,
-          timeline: formData.timeline || null
-        });
-
-      if (error) throw error;
-
+    // Simulate form submission
+    setTimeout(() => {
       toast({
         title: "Order Submitted!",
         description: "Thank you for your custom order request. We'll contact you within 24 hours.",
@@ -64,18 +49,10 @@ export const useCustomOrderForm = () => {
         timeline: ''
       });
 
-      return true;
-    } catch (error) {
-      console.error('Error submitting custom order:', error);
-      toast({
-        title: "Error",
-        description: "Failed to submit order. Please try again.",
-        variant: "destructive"
-      });
-      return false;
-    } finally {
       setIsSubmitting(false);
-    }
+    }, 1000);
+
+    return true;
   };
 
   return {

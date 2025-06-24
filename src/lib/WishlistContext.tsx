@@ -1,6 +1,4 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useAuth } from './AuthContext';
-import { supabase } from './supabase';
 
 type WishlistItem = {
   id: string;
@@ -13,10 +11,10 @@ type WishlistItem = {
 
 type WishlistContextType = {
   wishlist: WishlistItem[];
-  addToWishlist: (item: WishlistItem) => Promise<void>;
-  removeFromWishlist: (itemId: string) => Promise<void>;
-  isInWishlist: (itemId: string) => boolean;
   loading: boolean;
+  addToWishlist: (item: WishlistItem) => void;
+  removeFromWishlist: (itemId: string) => void;
+  isInWishlist: (itemId: string) => boolean;
 };
 
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
@@ -24,95 +22,55 @@ const WishlistContext = createContext<WishlistContextType | undefined>(undefined
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
   const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
 
-  // Load wishlist from Supabase when user logs in
+  // Load wishlist from localStorage on mount
   useEffect(() => {
-    if (user) {
-      loadWishlist();
-    } else {
-      setWishlist([]);
-      setLoading(false);
+    const savedWishlist = localStorage.getItem('narpavi-wishlist');
+    if (savedWishlist) {
+      try {
+        setWishlist(JSON.parse(savedWishlist));
+      } catch (error) {
+        console.error('Error parsing saved wishlist:', error);
+        setWishlist([]);
+      }
     }
-  }, [user]);
+    setLoading(false);
+  }, []);
 
-  const loadWishlist = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('wishlist')
-        .select('*')
-        .eq('user_id', user?.id)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setWishlist(data || []);
-    } catch (error) {
-      console.error('Error loading wishlist:', error);
-    } finally {
-      setLoading(false);
+  // Save wishlist to localStorage whenever it changes
+  useEffect(() => {
+    if (!loading) {
+      localStorage.setItem('narpavi-wishlist', JSON.stringify(wishlist));
     }
+  }, [wishlist, loading]);
+
+  const addToWishlist = (item: WishlistItem) => {
+    setWishlist((prev) => {
+      // Check if item already exists
+      const exists = prev.some(wishlistItem => wishlistItem.id === item.id);
+      if (exists) {
+        return prev; // Don't add if already exists
+      }
+      return [...prev, { ...item, created_at: new Date().toISOString() }];
+    });
   };
 
-  const addToWishlist = async (item: WishlistItem) => {
-    if (!user) {
-      throw new Error('Please sign in to add items to your wishlist');
-    }
-
-    try {
-      const { error } = await supabase
-        .from('wishlist')
-        .insert([
-          {
-            user_id: user.id,
-            item_id: item.id,
-            title: item.title,
-            image: item.image,
-            category: item.category,
-            description: item.description,
-          },
-        ]);
-
-      if (error) throw error;
-      setWishlist((prev) => [...prev, item]);
-    } catch (error) {
-      console.error('Error adding to wishlist:', error);
-      throw error;
-    }
-  };
-
-  const removeFromWishlist = async (itemId: string) => {
-    if (!user) return;
-
-    try {
-      const { error } = await supabase
-        .from('wishlist')
-        .delete()
-        .eq('user_id', user.id)
-        .eq('item_id', itemId);
-
-      if (error) throw error;
-      setWishlist((prev) => prev.filter((item) => item.id !== itemId));
-    } catch (error) {
-      console.error('Error removing from wishlist:', error);
-      throw error;
-    }
+  const removeFromWishlist = (itemId: string) => {
+    setWishlist((prev) => prev.filter(item => item.id !== itemId));
   };
 
   const isInWishlist = (itemId: string) => {
-    return wishlist.some((item) => item.id === itemId);
+    return wishlist.some(item => item.id === itemId);
   };
 
   return (
-    <WishlistContext.Provider
-      value={{
-        wishlist,
-        addToWishlist,
-        removeFromWishlist,
-        isInWishlist,
-        loading,
-      }}
-    >
+    <WishlistContext.Provider value={{ 
+      wishlist, 
+      loading, 
+      addToWishlist, 
+      removeFromWishlist, 
+      isInWishlist 
+    }}>
       {children}
     </WishlistContext.Provider>
   );

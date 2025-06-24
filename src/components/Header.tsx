@@ -1,20 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, Search, X, Heart, Gift, User, Phone, MessageCircle, ChevronDown, Truck, CreditCard, Package, Palette, Brush, Pencil, Droplets, Paintbrush, Monitor, Layers, Sparkles, Cake, Heart as HeartIcon, Building2, Home, GraduationCap, Baby, LogOut } from 'lucide-react';
+import { Menu, Search, X, Heart, Gift, User, Phone, MessageCircle, ChevronDown, Truck, CreditCard, Package, Palette, Brush, Pencil, Droplets, Paintbrush, Monitor, Layers, Sparkles, Cake, Heart as HeartIcon, Building2, Home, GraduationCap, Baby } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useToast } from '@/components/ui/use-toast';
 import GradientText from '@/components/ui/gradient-text';
-import { useAuth } from '@/lib/AuthContext';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +16,6 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, signOut } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -136,23 +126,6 @@ const Header = () => {
     });
   };
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      navigate('/auth');
-      toast({
-        title: "Success",
-        description: "You have been signed out successfully.",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "An error occurred",
-        variant: "destructive",
-      });
-    }
-  };
-
   return (
     <header className="bg-gradient-to-r from-pink-50 to-purple-50 shadow-md sticky top-0 z-50">
       {/* Top Bar */}
@@ -169,39 +142,6 @@ const Header = () => {
               </a>
             </div>
             <div className="flex items-center space-x-4">
-              {user ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="text-white hover:text-pink-400 hover:bg-transparent">
-                      <User className="w-4 h-4 mr-2" />
-                      <span className="hidden sm:inline">Account</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <Link to="/profile" className="cursor-pointer">
-                        <User className="w-4 h-4 mr-2" />
-                        Profile
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link to="/wishlist" className="cursor-pointer">
-                        <Heart className="w-4 h-4 mr-2" />
-                        Wishlist
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-600">
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Link to="/auth" className="hover:text-pink-400 transition-colors">Sign In</Link>
-              )}
               <div className="hidden sm:flex items-center space-x-4">
                 <Link to="/testimonials" className="hover:text-pink-400 transition-colors">Testimonials</Link>
                 <Link to="/faq" className="hover:text-pink-400 transition-colors">FAQ</Link>
@@ -332,28 +272,19 @@ const Header = () => {
               <Search className="w-5 h-5" />
             </Button>
             
-            {user && (
-              <Link to="/wishlist" className="text-gray-700 hover:text-pink-400">
-                <Heart className="w-5 h-5" />
-              </Link>
-            )}
+            <Link to="/wishlist" className="text-gray-700 hover:text-pink-400">
+              <Heart className="w-5 h-5" />
+            </Link>
 
-            {/* Profile/WhatsApp Button - Shows Profile on mobile, WhatsApp on desktop */}
-            <div className="hidden sm:block">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleWhatsAppClick}
-                className="text-gray-700 hover:text-pink-400"
-              >
-                <MessageCircle className="w-5 h-5" />
-              </Button>
-            </div>
-            <div className="sm:hidden">
-              <Link to="/profile" className="text-gray-700 hover:text-pink-400">
-                <User className="w-5 h-5" />
-              </Link>
-            </div>
+            {/* WhatsApp Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleWhatsAppClick}
+              className="text-gray-700 hover:text-pink-400"
+            >
+              <MessageCircle className="w-5 h-5" />
+            </Button>
 
             {/* Mobile Menu Button */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -369,66 +300,41 @@ const Header = () => {
               <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-gradient-to-b from-pink-50 to-purple-50 p-0">
                 {/* Mobile menu content */}
                 <div className="flex flex-col h-full">
-                  {/* User section at the top */}
-                  <div className="p-3 border-b border-gray-200">
-                    {user ? (
-                      <div className="flex items-center space-x-2">
-                        <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
-                          <User className="w-4 h-4 text-pink-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">Welcome back!</p>
-                          <Link to="/profile" className="text-xs text-pink-600 hover:text-pink-700">View Profile</Link>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="space-y-1">
-                        <p className="text-xs text-gray-600">Sign in to access your account</p>
-                        <Link 
-                          to="/auth" 
-                          className="inline-block px-3 py-1.5 text-sm bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors"
-                        >
-                          Sign In
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-
                   {/* Navigation items */}
                   <nav className="flex-1 py-2">
                     {navItems.map((item) => (
                       <div key={item.name} className="mb-2">
                         {item.submenu ? (
-                          <div className="space-y-1">
-                            <div className="px-3 py-1.5 text-sm font-medium text-gray-900 bg-white/50 mx-3">
+                          <div>
+                            <button
+                              onClick={() => toggleDropdown(item.name)}
+                              className="w-full text-left px-4 py-2 text-sm font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 transition-colors flex items-center justify-between"
+                            >
                               {item.name}
-                            </div>
-                            <div className="space-y-0.5">
-                              {item.submenu.map((subItem) => (
-                                <Link
-                                  key={`${item.name}-${subItem.name}`}
-                                  to={subItem.path}
-                                  className="flex items-center px-5 py-1.5 text-xs text-gray-600 hover:text-pink-600 hover:bg-white/50 transition-colors"
-                                  onClick={handleLinkClick}
-                                >
-                                  {subItem.icon && (
-                                    <subItem.icon className="w-3.5 h-3.5 mr-2 text-pink-500" />
-                                  )}
-                                  <span>{subItem.name}</span>
-                                </Link>
-                              ))}
-                            </div>
+                              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                            </button>
+                            {activeDropdown === item.name && (
+                              <div className="pl-4 space-y-1">
+                                {item.submenu.map((subItem) => (
+                                  <Link
+                                    key={subItem.name}
+                                    to={subItem.path}
+                                    className="block px-4 py-2 text-sm text-gray-600 hover:text-pink-600 hover:bg-pink-50 transition-colors"
+                                    onClick={handleLinkClick}
+                                  >
+                                    {subItem.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         ) : (
                           <Link
                             to={item.path}
-                            className="flex items-center px-3 py-1.5 text-xs text-gray-600 hover:text-pink-600 hover:bg-white/50 transition-colors mx-3 relative group"
+                            className="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 transition-colors"
                             onClick={handleLinkClick}
                           >
-                            <span className="relative">
-                              {item.name}
-                              <span className={`absolute -bottom-1 left-0 h-0.5 bg-pink-400 transition-all duration-300 w-0 group-hover:w-full ${location.pathname === item.path ? 'w-full' : ''}`}></span>
-                            </span>
+                            {item.name}
                           </Link>
                         )}
                       </div>
@@ -436,39 +342,27 @@ const Header = () => {
                   </nav>
 
                   {/* Bottom section */}
-                  <div className="p-3 border-t border-gray-200 bg-white/50">
-                    <div className="space-y-1">
-                      <Link 
-                        to="/testimonials" 
-                        className="flex items-center px-3 py-1.5 text-xs text-gray-600 hover:text-pink-600 hover:bg-white/50 transition-colors relative group"
+                  <div className="p-4 border-t border-gray-200">
+                    <div className="space-y-3">
+                      <Link
+                        to="/wishlist"
+                        className="flex items-center gap-2 text-sm text-gray-700 hover:text-pink-600 transition-colors"
                         onClick={handleLinkClick}
                       >
-                        <HeartIcon className="w-3.5 h-3.5 mr-2 text-pink-500" />
-                        <span className="relative">
-                          Testimonials
-                          <span className={`absolute -bottom-1 left-0 h-0.5 bg-pink-400 transition-all duration-300 w-0 group-hover:w-full ${location.pathname === '/testimonials' ? 'w-full' : ''}`}></span>
-                        </span>
+                        <Heart className="w-4 h-4" />
+                        Wishlist
                       </Link>
-                      <Link 
-                        to="/faq" 
-                        className="flex items-center px-3 py-1.5 text-xs text-gray-600 hover:text-pink-600 hover:bg-white/50 transition-colors relative group"
-                        onClick={handleLinkClick}
+                      <button
+                        onClick={handleWhatsAppClick}
+                        className="flex items-center gap-2 text-sm text-gray-700 hover:text-pink-600 transition-colors w-full text-left"
                       >
-                        <MessageCircle className="w-3.5 h-3.5 mr-2 text-pink-500" />
-                        <span className="relative">
-                          FAQ
-                          <span className={`absolute -bottom-1 left-0 h-0.5 bg-pink-400 transition-all duration-300 w-0 group-hover:w-full ${location.pathname === '/faq' ? 'w-full' : ''}`}></span>
-                        </span>
-                      </Link>
-                      {user && (
-                        <button
-                          onClick={handleSignOut}
-                          className="flex items-center w-full px-3 py-1.5 text-xs text-red-600 hover:bg-red-50 transition-colors"
-                        >
-                          <LogOut className="w-3.5 h-3.5 mr-2" />
-                          Sign Out
-                        </button>
-                      )}
+                        <MessageCircle className="w-4 h-4" />
+                        Contact via WhatsApp
+                      </button>
+                      <div className="flex items-center gap-2 text-sm text-gray-500">
+                        <Phone className="w-4 h-4" />
+                        +1 (234) 567-890
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -478,63 +372,46 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Search Sheet */}
-      <Sheet open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-        <SheetContent side="top" className="h-[300px] p-0">
-          <div className="flex flex-col h-full">
-            <div className="p-4 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Search</h2>
-              <p className="text-sm text-gray-500">Find artwork and collections</p>
+      {/* Search Overlay */}
+      {isSearchOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center pt-20">
+          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Search Gallery</h3>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsSearchOpen(false)}
+              >
+                <X className="w-5 h-5" />
+              </Button>
             </div>
-            
-            <form onSubmit={handleSearch} className="flex-1 p-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input
-                  type="search"
-                  placeholder="Search artwork and collections..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  className="pl-10 pr-20 h-12 text-base"
-                  autoFocus
-                />
-                <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      setSearchQuery('');
-                      setIsSearchOpen(false);
-                    }}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <X className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="submit"
-                    size="sm"
-                    className="bg-pink-600 hover:bg-pink-700"
-                  >
-                    Search
-                  </Button>
-                </div>
-              </div>
-
-              {/* Search Tips */}
-              <div className="mt-4 text-sm text-gray-500">
-                <p className="mb-2">Search tips:</p>
-                <ul className="list-disc list-inside space-y-1">
-                  <li>Try searching by category (e.g., "pencil portraits", "resin art")</li>
-                  <li>Search by occasion (e.g., "wedding", "birthday")</li>
-                  <li>Use specific terms (e.g., "custom painting", "digital art")</li>
-                </ul>
+            <form onSubmit={handleSearch}>
+              <Input
+                type="text"
+                placeholder="Search for artwork, categories, or themes..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="mb-4"
+                autoFocus
+              />
+              <div className="flex gap-2">
+                <Button type="submit" className="flex-1">
+                  Search
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsSearchOpen(false)}
+                >
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>
-        </SheetContent>
-      </Sheet>
+        </div>
+      )}
     </header>
   );
 };

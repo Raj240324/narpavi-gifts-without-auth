@@ -7,7 +7,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -24,18 +23,8 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message
-        });
-
-      if (error) throw error;
-
+    // Simulate form submission
+    setTimeout(() => {
       toast({
         title: "Message Sent!",
         description: "Thank you for reaching out. We'll get back to you within 24 hours.",
@@ -43,16 +32,8 @@ const Contact = () => {
       
       // Reset form
       setFormData({ name: '', email: '', subject: 'general', message: '' });
-    } catch (error) {
-      console.error('Error submitting contact form:', error);
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive"
-      });
-    } finally {
       setIsSubmitting(false);
-    }
+    }, 1000);
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -63,38 +44,14 @@ const Contact = () => {
     e.preventDefault();
     if (!newsletterEmail) return;
 
-    try {
-      const { error } = await supabase
-        .from('newsletter_subscriptions')
-        .insert({
-          email: newsletterEmail
-        });
-
-      if (error) {
-        if (error.code === '23505') { // Unique constraint violation
-          toast({
-            title: "Already Subscribed",
-            description: "This email is already subscribed to our newsletter.",
-          });
-        } else {
-          throw error;
-        }
-      } else {
-        toast({
-          title: "Subscribed!",
-          description: "Thank you for subscribing to our newsletter.",
-        });
-      }
-      
-      setNewsletterEmail('');
-    } catch (error) {
-      console.error('Error subscribing to newsletter:', error);
+    // Simulate newsletter subscription
+    setTimeout(() => {
       toast({
-        title: "Error",
-        description: "Failed to subscribe. Please try again.",
-        variant: "destructive"
+        title: "Subscribed!",
+        description: "Thank you for subscribing to our newsletter.",
       });
-    }
+      setNewsletterEmail('');
+    }, 500);
   };
 
   const handleWhatsAppClick = () => {
@@ -205,17 +162,17 @@ const Contact = () => {
                     <Label htmlFor="message">Message *</Label>
                     <Textarea
                       id="message"
-                      placeholder="Tell us about your project or ask us anything..."
                       value={formData.message}
                       onChange={(e) => handleInputChange('message', e.target.value)}
-                      className="min-h-[120px]"
+                      placeholder="Tell us about your inquiry or custom order request..."
+                      rows={6}
                       required
                     />
                   </div>
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-pink-400 hover:bg-pink-500 text-white text-lg py-3"
+                    className="w-full bg-pink-600 hover:bg-pink-700"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -223,113 +180,93 @@ const Contact = () => {
                 </form>
               </CardContent>
             </Card>
-
-          
-
           </div>
 
           {/* Contact Information */}
           <div className="space-y-6">
-            {/* Contact Info Card */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl">Contact Information</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <Mail className="w-6 h-6 text-pink-400 mt-1" />
+              <CardContent className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <Mail className="w-5 h-5 text-pink-500 mt-1" />
                   <div>
-                    <h3 className="font-semibold text-gray-800">Email</h3>
-                    <p className="text-gray-600">hello@narpavigifts.com</p>
-                    <p className="text-sm text-gray-500">We respond within 24 hours</p>
+                    <p className="font-medium">Email</p>
+                    <a href="mailto:hello@narpavigifts.com" className="text-pink-600 hover:text-pink-700">
+                      hello@narpavigifts.com
+                    </a>
                   </div>
                 </div>
-
-                <div className="flex items-start space-x-4">
-                  <MessageCircle className="w-6 h-6 text-green-500 mt-1" />
+                
+                <div className="flex items-start space-x-3">
+                  <MessageCircle className="w-5 h-5 text-pink-500 mt-1" />
                   <div>
-                    <h3 className="font-semibold text-gray-800">WhatsApp</h3>
-                    <Button 
-                      variant="link" 
-                      className="p-0 h-auto text-gray-600 hover:text-green-500"
-                      onClick={handleWhatsAppClick}
-                    >
-                      Message us for quick orders
-                    </Button>
-                    <p className="text-sm text-gray-500">Instant responses during business hours</p>
+                    <p className="font-medium">WhatsApp</p>
+                    <a href="https://wa.me/1234567890" className="text-pink-600 hover:text-pink-700">
+                      +1 (234) 567-890
+                    </a>
                   </div>
                 </div>
-
-                <div className="flex items-start space-x-4">
-                  <MapPin className="w-6 h-6 text-pink-400 mt-1" />
+                
+                <div className="flex items-start space-x-3">
+                  <MapPin className="w-5 h-5 text-pink-500 mt-1" />
                   <div>
-                    <h3 className="font-semibold text-gray-800">Studio Location</h3>
-                    <p className="text-gray-600">India</p>
-                    <p className="text-sm text-gray-500">By appointment only</p>
+                    <p className="font-medium">Location</p>
+                    <p className="text-gray-600">Serving customers worldwide</p>
                   </div>
                 </div>
-
-                <div className="flex items-start space-x-4">
-                  <Clock className="w-6 h-6 text-pink-400 mt-1" />
+                
+                <div className="flex items-start space-x-3">
+                  <Clock className="w-5 h-5 text-pink-500 mt-1" />
                   <div>
-                    <h3 className="font-semibold text-gray-800">Response Time</h3>
+                    <p className="font-medium">Response Time</p>
                     <p className="text-gray-600">Within 24 hours</p>
-                    <p className="text-sm text-gray-500">Monday - Saturday, 9AM - 6PM IST</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Social Media */}
+            {/* Newsletter Signup */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">Follow Our Journey</CardTitle>
+                <CardTitle className="text-xl">Stay Updated</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600 text-sm">
-                  See our latest work and behind-the-scenes content on social media
+              <CardContent>
+                <p className="text-gray-600 mb-4">
+                  Subscribe to our newsletter for updates on new products and special offers.
                 </p>
-                <div className="space-y-3">
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-gradient-to-r from-purple-400 to-pink-400 text-purple-600 hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white"
-                    onClick={handleInstagramClick}
-                  >
-                    <Instagram className="w-4 h-4 mr-2" />
-                    Follow on Instagram
+                <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    required
+                  />
+                  <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700">
+                    Subscribe
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-green-400 text-green-600 hover:bg-green-400 hover:text-white"
-                    onClick={handleWhatsAppClick}
-                  >
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    Order via WhatsApp
-                  </Button>
-                </div>
+                </form>
               </CardContent>
             </Card>
 
-        
-
+            {/* FAQ Link */}
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-gray-600 mb-4">
+                  Have a quick question? Check out our frequently asked questions.
+                </p>
+                <Button 
+                  onClick={handleFAQClick}
+                  variant="outline" 
+                  className="w-full"
+                >
+                  View FAQ
+                </Button>
+              </CardContent>
+            </Card>
           </div>
-        </div>
-
-        {/* FAQ Preview */}
-        <div className="mt-16 text-center bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-12">
-          <h2 className="font-dancing text-4xl text-gray-800 mb-4">Quick Questions?</h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Check out our frequently asked questions for instant answers about our services, 
-            shipping, and custom orders.
-          </p>
-          <Button 
-            size="lg" 
-            variant="outline"
-            className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white px-8"
-            onClick={handleFAQClick}
-          >
-            View FAQ
-          </Button>
         </div>
       </div>
     </div>

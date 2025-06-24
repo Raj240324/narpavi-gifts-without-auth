@@ -3,28 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Heart, MessageCircle, Phone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/lib/AuthContext';
 
 export default function Wishlist() {
   const { wishlist, loading, removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
-  const { user } = useAuth();
-
-  if (!user) {
-    return (
-      <div className="container mx-auto py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Sign In Required</CardTitle>
-            <CardDescription>Please sign in to view your wishlist</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button onClick={() => navigate('/auth')}>Sign In</Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   if (loading) {
     return (
@@ -52,46 +34,64 @@ export default function Wishlist() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8">Your Wishlist</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Your Wishlist</h1>
+        <p className="text-gray-600">Your saved favorite pieces</p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {wishlist.map((item) => (
-          <Card key={item.id} className="group">
-            <div className="relative aspect-square overflow-hidden rounded-t-lg">
+          <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="aspect-square overflow-hidden">
               <img
                 src={item.image}
                 alt={item.title}
-                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                onClick={() => removeFromWishlist(item.id)}
-              >
-                <Heart className="w-5 h-5 fill-pink-500 text-pink-500" />
-              </Button>
             </div>
-            <CardHeader>
-              <CardTitle className="line-clamp-1">{item.title}</CardTitle>
-              <CardDescription className="line-clamp-2">{item.description}</CardDescription>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg">{item.title}</CardTitle>
+              <CardDescription className="text-sm text-gray-600">
+                {item.category}
+              </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="flex flex-col space-y-2">
+            <CardContent className="pt-0">
+              <p className="text-sm text-gray-700 mb-4 line-clamp-2">
+                {item.description}
+              </p>
+              <div className="flex justify-between items-center">
+                <div className="flex space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      // Handle contact for custom order
+                      navigate('/contact', { 
+                        state: { 
+                          message: `I'm interested in: ${item.title}` 
+                        } 
+                      });
+                    }}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-1" />
+                    Inquire
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open('tel:+1234567890')}
+                  >
+                    <Phone className="w-4 h-4 mr-1" />
+                    Call
+                  </Button>
+                </div>
                 <Button
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => window.open(`https://wa.me/1234567890?text=${encodeURIComponent(`Hi! I'm interested in this artwork: ${item.title}`)}`, '_blank')}
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => removeFromWishlist(item.id)}
+                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
                 >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Contact via WhatsApp
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => window.location.href = 'tel:+1234567890'}
-                >
-                  <Phone className="w-4 h-4 mr-2" />
-                  Call to Inquire
+                  <Heart className="w-4 h-4 fill-current" />
                 </Button>
               </div>
             </CardContent>

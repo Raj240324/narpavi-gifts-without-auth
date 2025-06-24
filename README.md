@@ -4,6 +4,46 @@
 
 **URL**: https://lovable.dev/projects/84f63396-c2e3-4751-9263-ee3a79d0006a
 
+## Features
+
+### Testimonials System with Supabase Integration
+The website includes a comprehensive testimonials system powered by Supabase that allows customers to:
+
+- **Submit Reviews**: Customers can leave reviews after purchasing products through a user-friendly form
+- **Review Form Fields**: 
+  - Name (required)
+  - Product/Service selection (required)
+  - Star rating (1-5 stars)
+  - Review comment (required)
+  - Location (optional)
+- **Database Storage**: Reviews are stored in Supabase PostgreSQL database for reliable persistence
+- **Real-time Updates**: Live updates when new reviews are submitted using Supabase subscriptions
+- **Display Features**:
+  - Card-style layout for all reviews
+  - Featured review section
+  - Filtering by product category
+  - Sorting by newest, oldest, or highest rating
+  - Automatic average rating calculation
+  - Verified customer badges
+- **Validation**: Form includes basic validation for required fields
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Security**: Row Level Security (RLS) policies for data protection
+- **Error Handling**: Graceful fallback to mock data if database is unavailable
+
+The testimonials page is accessible at `/testimonials` and integrates with the existing website design.
+
+### Supabase Setup
+To use the testimonials system, you need to set up Supabase:
+
+1. **Create a Supabase project** at [supabase.com](https://supabase.com)
+2. **Set up environment variables** in a `.env` file:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_project_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+3. **Run the database setup script** (`supabase-setup.sql`) in your Supabase SQL Editor
+4. **Follow the detailed setup guide** in `SUPABASE_SETUP.md`
+
 ## How can I edit this code?
 
 There are several ways of editing your application.
