@@ -10,16 +10,16 @@ interface SEOProps {
 }
 
 const SEO: React.FC<SEOProps> = ({
-  title = "Narpavi Gifts | Handcrafted Pencil Art & Resin Gifts",
-  description = "Narpavi Gifts: Transform precious memories into stunning pencil portraits and resin masterpieces. Custom art and personalized gifts handmade with love in India.",
+  title = "Royal Resinz By Narpavi Gifts | Handcrafted Pencil Art & Resin Gifts",
+  description = "Royal Resinz By Narpavi Gifts: Transform precious memories into stunning pencil portraits and resin masterpieces. Custom art and personalized gifts handmade with love in India.",
   image = "/gallery-preview.jpg",
-  url = "https://narpavigifts.com",
+  url = "https://royalresinz.com",
   type = "website"
 }) => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Narpavi Gifts",
+    "name": "Royal Resinz By Narpavi Gifts",
     "url": url,
     "logo": `${url}/np-logo.png`,
     "description": description,
@@ -28,7 +28,7 @@ const SEO: React.FC<SEOProps> = ({
       "addressCountry": "IN"
     },
     "sameAs": [
-      "https://www.instagram.com/narpavi_gifts",
+      "https://www.instagram.com/royalresinz",
       "https://wa.me/1234567890"
     ]
   };
@@ -53,4 +53,4 @@ const SEO: React.FC<SEOProps> = ({
   );
 };
 
-export default SEO; 
+export default SEO;

@@ -23,7 +23,7 @@ const About = () => {
             <div className="absolute w-32 h-32 border-2 border-purple-200/50 rounded-full animate-spin-slow animation-delay-1000" style={{ animationDirection: 'reverse' }}></div>
           </div>
           <div className="relative">
-            <h1 className="font-dancing text-6xl md:text-7xl text-gray-800 mb-6">About Narpavi Gifts</h1>
+            <h1 className="font-dancing text-6xl md:text-7xl text-gray-800 mb-6">About Royal Resinz By Narpavi Gifts</h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Where <GradientText variant="bold">creativity meets tradition</GradientText>, and every piece tells a unique story
             </p>
@@ -87,7 +87,7 @@ const About = () => {
                 </h2>
               </div>
               <p className="text-gray-600 leading-relaxed text-lg mb-6">
-                Welcome to Narpavi Gifts, where creativity meets tradition. Our journey began with a 
+                Welcome to Royal Resinz By Narpavi Gifts, where creativity meets tradition. Our journey began with a 
                 simple passion for creating meaningful, personalized gifts that capture life's most 
                 precious moments. We believe that every gift should tell a story and hold a special 
                 place in someone's heart.

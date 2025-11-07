@@ -82,7 +82,7 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">7. Contact Us</h2>
               <p className="mb-4">If you have any questions about this Privacy Policy, please contact us:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Email: privacy@narpavigifts.com</li>
+                <li>Email: privacy@royalresinz.com</li>
                 <li>Phone: [Your Phone Number]</li>
                 <li>Address: [Your Business Address]</li>
               </ul>
@@ -108,4 +108,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy; 
+export default PrivacyPolicy;

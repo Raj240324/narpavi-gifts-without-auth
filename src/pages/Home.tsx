@@ -198,7 +198,7 @@ const Home = () => {
 
           <h1 className="font-dancing text-6xl md:text-8xl text-gray-800 mb-6 relative">
             <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
-              Narpavi Gifts
+              Royal Resinz By Narpavi Gifts
             </span>
             <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6">
               <Palette className="w-8 h-8 md:w-12 md:h-12 text-pink-400 animate-bounce" />

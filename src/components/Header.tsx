@@ -137,8 +137,8 @@ const Header = () => {
                 <Phone className="w-4 h-4" />
                 <span>+1 (234) 567-890</span>
               </a>
-              <a href="mailto:hello@narpavigifts.com" className="hover:text-pink-400 transition-colors">
-                hello@narpavigifts.com
+              <a href="mailto:hello@royalresinz.com" className="hover:text-pink-400 transition-colors">
+                hello@royalresinz.com
               </a>
             </div>
             <div className="flex items-center space-x-4">
@@ -159,12 +159,12 @@ const Header = () => {
             <div className="relative w-10 h-10 sm:w-12 sm:h-12 group-hover:scale-110 transition-transform duration-300">
               <img 
                 src="/np-logo.png" 
-                alt="Narpavi Gifts Logo" 
+                alt="Royal Resinz By Narpavi Gifts Logo" 
                 className="w-full h-full object-contain"
               />
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="font-dancing text-xl sm:text-2xl text-gray-800 group-hover:text-pink-600 transition-colors duration-300">Narpavi Gifts</span>
+              <span className="font-dancing text-xl sm:text-2xl text-gray-800 group-hover:text-pink-600 transition-colors duration-300">Royal Resinz By Narpavi Gifts</span>
               <GradientText variant="default" className="text-xs whitespace-nowrap">Handcrafted with Love</GradientText>
             </div>
           </Link>

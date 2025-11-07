@@ -1,4 +1,5 @@
-import { supabase, Review, CreateReviewData } from './supabase';
+import { supabase } from './supabase';
+import type { Review, CreateReviewData } from './supabase';
 
 export class TestimonialsService {
   private static TABLE_NAME = 'testimonials';
@@ -175,3 +176,5 @@ export class TestimonialsService {
     }
   }
 } 
+
+export { CreateReviewData };

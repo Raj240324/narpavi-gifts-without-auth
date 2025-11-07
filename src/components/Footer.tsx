@@ -24,7 +24,7 @@ const Footer = () => {
   };
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hi! I'm interested in placing an order for gifts from Narpavi Gifts.");
+    const message = encodeURIComponent("Hi! I'm interested in placing an order for gifts from Royal Resinz By Narpavi Gifts.");
     window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
     toast({
       title: "Opening WhatsApp",
@@ -33,7 +33,7 @@ const Footer = () => {
   };
 
   const handleInstagramClick = () => {
-    window.open('https://www.instagram.com/narpavi_gifts?igsh=cWowMHlidXB5M3V1', '_blank');
+    window.open('https://www.instagram.com/royalresinz', '_blank');
     toast({
       title: "Opening Instagram",
       description: "Check out our latest work on Instagram...",
@@ -41,7 +41,7 @@ const Footer = () => {
   };
 
   const handleEmailClick = () => {
-    window.location.href = 'mailto:hello@narpavigifts.com';
+    window.location.href = 'mailto:hello@royalresinz.com';
     toast({
       title: "Opening Email",
       description: "Opening your email client...",
@@ -58,11 +58,11 @@ const Footer = () => {
               <div className="w-8 h-8 relative">
                 <img 
                   src="/np-logo.png" 
-                  alt="Narpavi Gifts Logo" 
+                  alt="Royal Resinz By Narpavi Gifts Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="font-dancing text-xl">Narpavi Gifts</span>
+              <span className="font-dancing text-xl">Royal Resinz By Narpavi Gifts</span>
             </div>
             <p className="text-gray-400 text-sm">
               <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-pink-500 bg-clip-text text-transparent font-medium">
@@ -172,7 +172,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2025 Narpavi Gifts. All rights reserved.
+            © 2025 Royal Resinz By Narpavi Gifts. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link to="/privacy-policy" className="text-gray-400 hover:text-white text-sm transition-colors">

@@ -12,7 +12,7 @@ const TermsOfService = () => {
           <div className="space-y-8 text-gray-600">
             <section>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">1. Acceptance of Terms</h2>
-              <p className="mb-4">By accessing and using Narpavi Gifts' website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
+              <p className="mb-4">By accessing and using Royal Resinz By Narpavi Gifts' website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
             </section>
 
             <section>
@@ -67,7 +67,7 @@ const TermsOfService = () => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">6. Intellectual Property</h2>
               <p className="mb-4">Regarding intellectual property:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>All artwork and designs are the property of Narpavi Gifts</li>
+                <li>All artwork and designs are the property of Royal Resinz By Narpavi Gifts</li>
                 <li>Custom designs may not be reproduced without permission</li>
                 <li>Photographs of our work may not be used commercially</li>
                 <li>We retain the right to display commissioned work in our portfolio</li>
@@ -76,7 +76,7 @@ const TermsOfService = () => {
 
             <section>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">7. Limitation of Liability</h2>
-              <p className="mb-4">Narpavi Gifts is not liable for:</p>
+              <p className="mb-4">Royal Resinz By Narpavi Gifts is not liable for:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Indirect or consequential damages</li>
                 <li>Loss of profits or data</li>
@@ -90,7 +90,7 @@ const TermsOfService = () => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">8. Contact Information</h2>
               <p className="mb-4">For any questions regarding these terms, please contact us:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Email: terms@narpavigifts.com</li>
+                <li>Email: terms@royalresinz.com</li>
                 <li>Phone: [Your Phone Number]</li>
                 <li>Address: [Your Business Address]</li>
               </ul>
@@ -116,4 +116,4 @@ const TermsOfService = () => {
   );
 };
 
-export default TermsOfService; 
+export default TermsOfService;

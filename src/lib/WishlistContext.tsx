@@ -25,7 +25,7 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
 
   // Load wishlist from localStorage on mount
   useEffect(() => {
-    const savedWishlist = localStorage.getItem('narpavi-wishlist');
+    const savedWishlist = localStorage.getItem('royalresinz-wishlist') || localStorage.getItem('narpavi-wishlist');
     if (savedWishlist) {
       try {
         setWishlist(JSON.parse(savedWishlist));
@@ -40,7 +40,7 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
   // Save wishlist to localStorage whenever it changes
   useEffect(() => {
     if (!loading) {
-      localStorage.setItem('narpavi-wishlist', JSON.stringify(wishlist));
+      localStorage.setItem('royalresinz-wishlist', JSON.stringify(wishlist));
     }
   }, [wishlist, loading]);
 
@@ -82,4 +82,4 @@ export function useWishlist() {
     throw new Error('useWishlist must be used within a WishlistProvider');
   }
   return context;
-} 
+}

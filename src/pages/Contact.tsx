@@ -55,7 +55,7 @@ const Contact = () => {
   };
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hi! I'm interested in your gifts from Narpavi Gifts. Could you please share more details about your services?");
+    const message = encodeURIComponent("Hi! I'm interested in your gifts from Royal Resinz By Narpavi Gifts. Could you please share more details about your services?");
     window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
     toast({
       title: "Opening WhatsApp",
@@ -64,7 +64,7 @@ const Contact = () => {
   };
 
   const handleInstagramClick = () => {
-    window.open('https://www.instagram.com/narpavi_gifts?igsh=cWowMHlidXB5M3V1', '_blank');
+    window.open('https://www.instagram.com/royalresinz', '_blank');
     toast({
       title: "Opening Instagram",
       description: "Check out our latest work on Instagram...",
@@ -193,8 +193,8 @@ const Contact = () => {
                   <Mail className="w-5 h-5 text-pink-500 mt-1" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <a href="mailto:hello@narpavigifts.com" className="text-pink-600 hover:text-pink-700">
-                      hello@narpavigifts.com
+                    <a href="mailto:hello@royalresinz.com" className="text-pink-600 hover:text-pink-700">
+                      hello@royalresinz.com
                     </a>
                   </div>
                 </div>

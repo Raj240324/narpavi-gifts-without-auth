@@ -41,7 +41,7 @@ const KeyFeatures = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-dancing text-4xl md:text-5xl text-gray-800 mb-4">
-            Why Choose Narpavi Gifts?
+            Why Choose Royal Resinz By Narpavi Gifts?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             We're passionate about creating meaningful art that celebrates life's special moments

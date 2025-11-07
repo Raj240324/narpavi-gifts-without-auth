@@ -142,7 +142,7 @@ const Testimonials = () => {
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Discover why hundreds of customers choose Narpavi Gifts for their most precious moments. 
+              Discover why hundreds of customers choose Royal Resinz By Narpavi Gifts for their most precious moments. 
               Each review tells a story of love, craftsmanship, and unforgettable memories.
             </p>
 
