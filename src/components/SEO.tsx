@@ -28,7 +28,7 @@ const SEO: React.FC<SEOProps> = ({
       "addressCountry": "IN"
     },
     "sameAs": [
-      "https://www.instagram.com/royalresinz",
+      "https://www.instagram.com/narpavi_gifts",
       "https://wa.me/1234567890"
     ]
   };

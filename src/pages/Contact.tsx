@@ -29,7 +29,7 @@ const Contact = () => {
         title: "Message Sent!",
         description: "Thank you for reaching out. We'll get back to you within 24 hours.",
       });
-      
+
       // Reset form
       setFormData({ name: '', email: '', subject: 'general', message: '' });
       setIsSubmitting(false);
@@ -64,7 +64,7 @@ const Contact = () => {
   };
 
   const handleInstagramClick = () => {
-    window.open('https://www.instagram.com/royalresinz', '_blank');
+    window.open('https://www.instagram.com/narpavi_gifts?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank');
     toast({
       title: "Opening Instagram",
       description: "Check out our latest work on Instagram...",
@@ -90,14 +90,14 @@ const Contact = () => {
         <div className="mb-12">
           <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Quick Contact for Orders</h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
+            <Button
               onClick={handleWhatsAppClick}
               className="bg-green-500 hover:bg-green-600 text-white flex items-center gap-2 px-6 py-3 text-lg"
             >
               <MessageCircle className="w-5 h-5" />
               WhatsApp for Orders
             </Button>
-            <Button 
+            <Button
               onClick={handleInstagramClick}
               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white flex items-center gap-2 px-6 py-3 text-lg"
             >
@@ -170,8 +170,8 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full bg-pink-600 hover:bg-pink-700"
                     disabled={isSubmitting}
                   >
@@ -198,7 +198,7 @@ const Contact = () => {
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-3">
                   <MessageCircle className="w-5 h-5 text-pink-500 mt-1" />
                   <div>
@@ -208,7 +208,7 @@ const Contact = () => {
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-pink-500 mt-1" />
                   <div>
@@ -216,7 +216,7 @@ const Contact = () => {
                     <p className="text-gray-600">Serving customers worldwide</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-3">
                   <Clock className="w-5 h-5 text-pink-500 mt-1" />
                   <div>
@@ -257,9 +257,9 @@ const Contact = () => {
                 <p className="text-gray-600 mb-4">
                   Have a quick question? Check out our frequently asked questions.
                 </p>
-                <Button 
+                <Button
                   onClick={handleFAQClick}
-                  variant="outline" 
+                  variant="outline"
                   className="w-full"
                 >
                   View FAQ

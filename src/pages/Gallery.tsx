@@ -33,71 +33,71 @@ const Gallery = () => {
       id: '1',
       title: 'Custom Pet Portrait',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=800&h=800&fit=crop&auto=format',
+      image: 'https://images.pexels.com/photos/1839919/pexels-photo-1839919.jpeg?auto=compress&cs=tinysrgb&w=800',
       description: 'Detailed pencil portrait capturing your pet\'s unique personality'
     },
     {
       id: '2',
       title: 'Family Portrait Sketch',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=800&fit=crop&auto=format',
+      image: 'https://images.pexels.com/photos/3778603/pexels-photo-3778603.jpeg?auto=compress&cs=tinysrgb&w=800',
       description: 'Heartwarming family portrait drawn with precision and care'
     },
     {
       id: '3',
       title: 'Couple Portrait Drawing',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1505305130871-e55c3859a09a?w=800&h=800&fit=crop&auto=format',
+      image: 'https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=800',
       description: 'Romantic couple portrait capturing special moments'
     },
     {
       id: '4',
-      title: 'Landscape Pencil Art',
+      title: 'Realistic Portrait Art',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1522766008596-dc94c36c844d?w=800&h=800&fit=crop&auto=format',
-      description: 'Detailed landscape drawing showcasing natural beauty'
+      image: 'https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=800',
+      description: 'Detailed portrait drawing showcasing artistic skill'
     },
     {
       id: '5',
       title: 'Pet Memorial Portrait',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1580991815919-28c22b70857b?w=800&h=800&fit=crop&auto=format',
+      image: 'https://images.pexels.com/photos/1839919/pexels-photo-1839919.jpeg?auto=compress&cs=tinysrgb&w=800',
       description: 'Touching memorial portrait to honor your beloved pet'
     },
     {
       id: '6',
       title: 'Child Portrait Sketch',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=800&fit=crop',
+      image: 'https://images.pexels.com/photos/3778603/pexels-photo-3778603.jpeg?auto=compress&cs=tinysrgb&w=800',
       description: 'Charming portrait capturing childhood innocence'
     },
     {
       id: '7',
-      title: 'Nature Scene Drawing',
+      title: 'Artistic Portrait',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&h=800&fit=crop',
-      description: 'Serene nature scene drawn with intricate detail'
+      image: 'https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=800',
+      description: 'Beautiful pencil drawing with fine details'
     },
     {
       id: '8',
-      title: 'Architectural Sketch',
+      title: 'Custom Portrait Art',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=800&h=800&fit=crop',
-      description: 'Detailed architectural drawing with precise lines'
+      image: 'https://images.pexels.com/photos/3778603/pexels-photo-3778603.jpeg?auto=compress&cs=tinysrgb&w=800',
+      description: 'Personalized portrait with artistic flair'
     },
     {
       id: '9',
-      title: 'Wildlife Portrait',
+      title: 'Detailed Portrait',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=800&fit=crop',
-      description: 'Realistic wildlife portrait capturing animal essence'
+      image: 'https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=800',
+      description: 'Realistic portrait capturing emotions'
     },
     {
       id: '10',
-      title: 'Abstract Pencil Art',
+      title: 'Expressive Portrait',
       category: 'Pencil Art',
-      image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&h=800&fit=crop',
-      description: 'Creative abstract composition in pencil'
+      image: 'https://images.pexels.com/photos/3778603/pexels-photo-3778603.jpeg?auto=compress&cs=tinysrgb&w=800',
+      description: 'Creative portrait with unique style'
     },
 
     // Resin Art Category
@@ -632,8 +632,8 @@ const Gallery = () => {
     'Baby Shower Gifts'
   ];
 
-  const filteredItems = selectedCategory === 'all' 
-    ? galleryItems 
+  const filteredItems = selectedCategory === 'all'
+    ? galleryItems
     : galleryItems.filter(item => item.category === selectedCategory);
 
   const openModal = (imageSrc: string) => {
@@ -670,7 +670,7 @@ const Gallery = () => {
                 className="pl-10"
               />
             </div>
-            
+
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
               <SelectTrigger className="w-full md:w-[200px]">
                 <SelectValue placeholder="Select category" />
@@ -714,9 +714,9 @@ const Gallery = () => {
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4" onClick={closeModal}>
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <img src={selectedImage} alt="Enlarged gallery item" className="max-w-full max-h-[80vh] object-contain" />
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 className="absolute top-2 right-2 text-white hover:bg-white/20"
                 onClick={closeModal}
               >
@@ -733,8 +733,8 @@ const Gallery = () => {
             Ready to commission your own custom piece? Let's bring your vision to life!
           </p>
           <Link to="/custom-orders">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-pink-400 hover:bg-pink-500 text-white px-8"
             >
               Start Your Custom Order

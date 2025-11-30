@@ -33,7 +33,7 @@ const Footer = () => {
   };
 
   const handleInstagramClick = () => {
-    window.open('https://www.instagram.com/royalresinz', '_blank');
+    window.open('https://www.instagram.com/narpavi_gifts?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank');
     toast({
       title: "Opening Instagram",
       description: "Check out our latest work on Instagram...",
@@ -56,9 +56,9 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 relative">
-                <img 
-                  src="/np-logo.png" 
-                  alt="Royal Resinz By Narpavi Gifts Logo" 
+                <img
+                  src="/np-logo.png"
+                  alt="Royal Resinz By Narpavi Gifts Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -71,24 +71,24 @@ const Footer = () => {
               . Creating unique, personalized pieces that tell your story.
             </p>
             <div className="flex space-x-3">
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={handleInstagramClick}
                 className="hover:bg-purple-600"
               >
                 <Instagram className="w-4 h-4" />
               </Button>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={handleWhatsAppClick}
                 className="hover:bg-green-600"
               >
                 <MessageCircle className="w-4 h-4" />
               </Button>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={handleEmailClick}
                 className="hover:bg-pink-600"
@@ -116,7 +116,7 @@ const Footer = () => {
             <h3 className="font-semibold text-lg">Order Now</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <button 
+                <button
                   onClick={handleWhatsAppClick}
                   className="text-gray-400 hover:text-green-400 transition-colors flex items-center gap-2"
                 >
@@ -125,7 +125,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={handleInstagramClick}
                   className="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2"
                 >
@@ -134,7 +134,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={handleEmailClick}
                   className="text-gray-400 hover:text-pink-400 transition-colors flex items-center gap-2"
                 >
@@ -152,15 +152,15 @@ const Footer = () => {
               Subscribe for exclusive previews and special offers
             </p>
             <form onSubmit={handleNewsletterSubmit} className="flex space-x-2">
-              <Input 
+              <Input
                 type="email"
-                placeholder="Your email" 
+                placeholder="Your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
                 required
               />
-              <Button 
+              <Button
                 type="submit"
                 className="bg-pink-400 hover:bg-pink-500"
               >
