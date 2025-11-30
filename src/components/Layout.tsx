@@ -11,10 +11,12 @@ const Layout = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  const isHome = location.pathname === '/';
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-green-50">
       <Header />
-      <main>
+      <main className={isHome ? '' : 'pt-28'}>
         <Outlet />
       </main>
       <Footer />

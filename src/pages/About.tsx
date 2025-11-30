@@ -44,9 +44,9 @@ const About = () => {
                   </h2>
                 </div>
                 <p className="text-gray-600 leading-relaxed text-lg">
-                  To create <GradientText variant="bold">meaningful connections</GradientText> through art, 
-                  transforming precious moments into timeless pieces that capture emotions and tell unique stories. 
-                  We strive to deliver exceptional craftsmanship and personalized experiences that make every gift 
+                  To create <GradientText variant="bold">meaningful connections</GradientText> through art,
+                  transforming precious moments into timeless pieces that capture emotions and tell unique stories.
+                  We strive to deliver exceptional craftsmanship and personalized experiences that make every gift
                   truly special.
                 </p>
               </div>
@@ -65,9 +65,9 @@ const About = () => {
                   </h2>
                 </div>
                 <p className="text-gray-600 leading-relaxed text-lg">
-                  To be the <GradientText variant="bold">premier destination</GradientText> for handcrafted gifts 
-                  that celebrate life's most precious moments. We envision a world where every gift tells a story, 
-                  where art bridges connections, and where our creations become cherished heirlooms passed down 
+                  To be the <GradientText variant="bold">premier destination</GradientText> for handcrafted gifts
+                  that celebrate life's most precious moments. We envision a world where every gift tells a story,
+                  where art bridges connections, and where our creations become cherished heirlooms passed down
                   through generations.
                 </p>
               </div>
@@ -78,7 +78,7 @@ const About = () => {
         {/* Story Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
           <div className="space-y-8 relative">
-            <div className="absolute -left-6 top-0 w-1 h-full bg-gradient-to-b from-pink-400 via-purple-400 to-pink-400 rounded-full"></div>
+            <div className="absolute -left-4 md:-left-6 top-0 w-1 h-full bg-gradient-to-b from-pink-400 via-purple-400 to-pink-400 rounded-full"></div>
             <div className="relative">
               <div className="flex items-center gap-3 mb-6">
                 <Heart className="w-6 h-6 text-pink-500" />
@@ -87,22 +87,22 @@ const About = () => {
                 </h2>
               </div>
               <p className="text-gray-600 leading-relaxed text-lg mb-6">
-                Welcome to Royal Resinz By Narpavi Gifts, where creativity meets tradition. Our journey began with a 
-                simple passion for creating meaningful, personalized gifts that capture life's most 
-                precious moments. We believe that every gift should tell a story and hold a special 
+                Welcome to Royal Resinz By Narpavi Gifts, where creativity meets tradition. Our journey began with a
+                simple passion for creating meaningful, personalized gifts that capture life's most
+                precious moments. We believe that every gift should tell a story and hold a special
                 place in someone's heart.
               </p>
               <p className="text-gray-600 leading-relaxed text-lg mb-6">
-                Our expertise lies in two distinct art forms: the timeless beauty of pencil art and 
-                the modern elegance of resin creations. Each pencil portrait is meticulously crafted 
-                to capture not just the likeness, but the essence and personality of the subject. 
-                Our resin art pieces, on the other hand, transform everyday items into stunning 
+                Our expertise lies in two distinct art forms: the timeless beauty of pencil art and
+                the modern elegance of resin creations. Each pencil portrait is meticulously crafted
+                to capture not just the likeness, but the essence and personality of the subject.
+                Our resin art pieces, on the other hand, transform everyday items into stunning
                 works of art that blend functionality with beauty.
               </p>
               <p className="text-gray-600 leading-relaxed text-lg mb-8">
-                What sets us apart is our commitment to personalization. We work closely with our 
-                clients to understand their vision and create pieces that are truly one-of-a-kind. 
-                Whether it's a custom portrait, a resin art piece, or a unique gift, each creation 
+                What sets us apart is our commitment to personalization. We work closely with our
+                clients to understand their vision and create pieces that are truly one-of-a-kind.
+                Whether it's a custom portrait, a resin art piece, or a unique gift, each creation
                 is infused with care, attention to detail, and a touch of tradition.
               </p>
               <Button className="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
@@ -114,25 +114,25 @@ const About = () => {
             </div>
           </div>
           <div className="space-y-6 relative">
-            <div className="absolute -inset-6 bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl -z-10"></div>
+            <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl -z-10"></div>
             <div className="grid grid-cols-2 gap-6">
-              <img 
-                src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop" 
+              <img
+                src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop"
                 alt="Artist at work"
                 className="w-full h-64 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
               />
-              <img 
-                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=300&fit=crop" 
+              <img
+                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=300&fit=crop"
                 alt="Studio workspace"
                 className="w-full h-64 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
               />
-              <img 
-                src="https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=600&h=300&fit=crop" 
+              <img
+                src="https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=600&h=300&fit=crop"
                 alt="Art supplies"
                 className="w-full h-48 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
               />
-              <img 
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=300&fit=crop" 
+              <img
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=300&fit=crop"
                 alt="Work in progress"
                 className="w-full h-48 object-cover rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
               />
@@ -153,7 +153,7 @@ const About = () => {
               Every piece is carefully crafted through a detailed process that ensures exceptional quality
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               { icon: <Heart className="w-8 h-8" />, title: "Consultation", description: "We discuss your vision, review reference materials, and plan the perfect piece" },
@@ -190,7 +190,7 @@ const About = () => {
             </div>
             <p className="text-xl text-gray-600">What drives us to create exceptional art every day</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               { title: "Quality Craftsmanship", description: "Every piece is created with meticulous attention to detail using only the finest materials" },
@@ -200,8 +200,8 @@ const About = () => {
               <div key={index} className="text-center transform hover:scale-105 transition-all duration-500">
                 <div className="w-16 h-16 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                   {index === 0 ? <Brush className="w-8 h-8 text-white" /> :
-                   index === 1 ? <Heart className="w-8 h-8 text-white" /> :
-                   <Camera className="w-8 h-8 text-white" />}
+                    index === 1 ? <Heart className="w-8 h-8 text-white" /> :
+                      <Camera className="w-8 h-8 text-white" />}
                 </div>
                 <h3 className="font-semibold text-2xl text-gray-800 mb-4">
                   <GradientText variant="bold">{value.title}</GradientText>
@@ -227,7 +227,7 @@ const About = () => {
               { image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=300&fit=crop", title: "Work in Progress" }
             ].map((item, index) => (
               <div key={index} className="relative group overflow-hidden rounded-2xl transform hover:scale-105 transition-all duration-500">
-                <img 
+                <img
                   src={item.image}
                   alt={item.title}
                   className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
